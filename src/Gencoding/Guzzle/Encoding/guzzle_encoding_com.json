@@ -8,10 +8,6 @@
 			"summary":"Add New Media API",
 			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
 			"parameters":{
-				"mediaid":{
-					"description":"A unique identifier for each media. This field must be specified for the following actions: UpdateMedia, ProcessMedia, CancelMedia, GetMediaInfo, GetStatus.",
-					"type":"integer"
-				},
 				"action":{
 					"description":"The action to be performed in the API request.",
 					"type":"string"
@@ -54,7 +50,11 @@
 			"summary":"",
 			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
 			"parameters":{
-
+				"mediaid":{
+					"description":"A unique identifier for each media. This field must be specified for the following actions: UpdateMedia, ProcessMedia, CancelMedia, GetMediaInfo, GetStatus.",
+					"type":"integer",
+					"required": true
+				}
 			}
 
 		},
@@ -63,7 +63,11 @@
 			"summary":"",
 			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
 			"parameters":{
-
+				"mediaid":{
+					"description":"A unique identifier for each media.",
+					"type":"integer",
+					"required": true
+				}
 			}
 
 		},
@@ -72,7 +76,11 @@
 			"summary":"",
 			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
 			"parameters":{
-
+				"mediaid":{
+					"description":"A unique identifier for each media.",
+					"type":"integer",
+					"required": true
+				}
 			}
 
 		},
@@ -90,6 +98,15 @@
 			"summary":"",
 			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
 			"parameters":{
+				"mediaid":{
+					"description":"A unique identifier for each media.",
+					"type":"integer",
+					"required": true
+				},
+				"extended":{
+					"description":"Extended Info",
+					"type":"string"
+				}
 
 			}
 
@@ -99,7 +116,11 @@
 			"summary":"",
 			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
 			"parameters":{
-
+				"mediaid":{
+					"description":"A unique identifier for each media.",
+					"type":"integer",
+					"required": true
+				}
 			}
 
 		},
@@ -108,7 +129,11 @@
 			"summary":"",
 			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
 			"parameters":{
-
+				"mediaid":{
+					"description":"A unique identifier for each media.",
+					"type":"integer",
+					"required": true
+				}
 			}
 
 		},

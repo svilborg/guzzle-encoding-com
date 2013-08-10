@@ -50,11 +50,9 @@ abstract class XmlAbstractCommand extends AbstractCommand
 	{
 		$this->rawXml = $this->buildXML();
 
-		$v1 = '<?xml version="1.0" encoding="utf-8"?><query><userid>1</userid><userkey>test</userkey><action>AddMedia</action><format/></query>';
-
 		$this->client->setDefaultOption('headers', array('Content-Type' => 'application/x-www-form-urlencoded'));
 
-		$this->request = $this->client->post(null, null, array("xml"=>(trim(($v1)))));
+		$this->request = $this->client->post(null, null, array("xml"=>($this->rawXml->saveXML())));
 	}
 
 	/**
@@ -88,66 +86,66 @@ abstract class XmlAbstractCommand extends AbstractCommand
 		// 		}
 
 		return $xml;
-		}
+	}
 
-		/**
-		 * Checks the XML response for errors.
-		 * @param  EncodingResponse $xml XML response
-		 */
-		protected function handleResponseErrors($xmlResponse) {
-			if ($xmlResponse->hasError()) {
-				throw new EncodingXmlException($xmlResponse);
-			}
-		}
-
-		/**
-		 * {@inheritdoc}
-		 * @return EncodingResponse
-		 */
-		public function getResult()
-		{
-			return parent::getResult();
-		}
-
-		/**
-		 * Get the raw XML object
-		 *
-		 * @return DOMDocument
-		 * @throws CommandException
-		 */
-		public function getRawXml()
-		{
-			if (!$this->isPrepared()) {
-				throw new CommandException('The command must be prepared before retrieving the request XML');
-			}
-
-			return $this->rawXml;
-		}
-		/**
-		 * Get the String XML object
-		 *
-		 * @return string
-		 * @throws CommandException
-		 */
-		public function getXml()
-		{
-			return $this->getRawXml()->saveXml();
-		}
-
-		/**
-		 * Returns the response body, by default with
-		 * encoded HTML entities as string.
-		 *
-		 * @param  boolean $encodeEntities Encode the HTML entities on the body?
-		 * @return string  Response body
-		 */
-		public function getResponseBody($encodeEntities = true) {
-			$body = (string) $this->getResponse()->getBody();
-
-			if ($encodeEntities) {
-				return htmlentities($body);
-			}
-
-			return $body;
+	/**
+	 * Checks the XML response for errors.
+	 * @param  EncodingResponse $xml XML response
+	 */
+	protected function handleResponseErrors($xmlResponse) {
+		if ($xmlResponse->hasError()) {
+			throw new EncodingXmlException($xmlResponse);
 		}
 	}
+
+	/**
+	 * {@inheritdoc}
+	 * @return EncodingResponse
+	 */
+	public function getResult()
+	{
+		return parent::getResult();
+	}
+
+	/**
+	 * Get the raw XML object
+	 *
+	 * @return DOMDocument
+	 * @throws CommandException
+	 */
+	public function getRawXml()
+	{
+		if (!$this->isPrepared()) {
+			throw new CommandException('The command must be prepared before retrieving the request XML');
+		}
+
+		return $this->rawXml;
+	}
+	/**
+	 * Get the String XML object
+	 *
+	 * @return string
+	 * @throws CommandException
+	 */
+	public function getXml()
+	{
+		return $this->getRawXml()->saveXml();
+	}
+
+	/**
+	 * Returns the response body, by default with
+	 * encoded HTML entities as string.
+	 *
+	 * @param  boolean $encodeEntities Encode the HTML entities on the body?
+	 * @return string  Response body
+	 */
+	public function getResponseBody($encodeEntities = true) {
+		$body = (string) $this->getResponse()->getBody();
+
+		if ($encodeEntities) {
+			return htmlentities($body);
+		}
+
+		return $body;
+	}
+}
