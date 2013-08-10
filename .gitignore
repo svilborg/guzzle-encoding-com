@@ -1,0 +1,10 @@
+index.php
+.htaccess
+phpunit.xml
+vendor
+composer.phar
+
+# ignore eclipse
+.buildpath
+.settings/*
+.project

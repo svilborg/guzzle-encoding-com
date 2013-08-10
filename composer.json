@@ -1,0 +1,26 @@
+{
+	"name":"svilborg/guzzle-encoding-com",
+	"type":"library",
+	"description":"PHP Library for Encoding.com's XML API",
+	"keywords":[
+		"Guzzle",
+		"Encoding.com"
+	],
+	"license":"MIT",
+	"authors":[
+		{
+			"name":"Svilborg",
+			"email":"svilborg@gmail.com"
+		}
+	],
+	"require":{
+		"php":">=5.3.2",
+		"guzzle/guzzle":"*"
+	},
+	"autoload":{
+		"psr-0":{
+			"Gencoding\\Guzzle\\Encoding":"src/"
+		}
+	},
+	"minimum-stability":"dev"
+}
