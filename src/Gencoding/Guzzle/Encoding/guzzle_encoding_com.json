@@ -1,14 +1,12 @@
 {
-	"name":"Twitter",
+	"name":"Guzzle Encoding.com",
 	"apiVersion":"1.1",
-
-	"description":"Twitter REST API client",
+	"description":"Guzzle Encoding.com XML API Client",
 	"operations":{
 		"AddMedia":{
 			"httpMethod":"POST",
-			"summary":"Encoding.com API",
-
-			"class" : "\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
+			"summary":"Add New Media API",
+			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
 			"parameters":{
 				"mediaid":{
 					"description":"A unique identifier for each media. This field must be specified for the following actions: UpdateMedia, ProcessMedia, CancelMedia, GetMediaInfo, GetStatus.",
@@ -38,7 +36,10 @@
 					"description":"",
 					"type":"string"
 				}
+
 			}
+
 		}
+
 	}
 }
