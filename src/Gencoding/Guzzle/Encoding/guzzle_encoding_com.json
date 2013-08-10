@@ -4,7 +4,7 @@
 	"description":"Guzzle Encoding.com XML API Client",
 	"operations":{
 		"AddMedia":{
-			"httpMethod":"POST",
+			"httpMethod":"GET",
 			"summary":"Add New Media API",
 			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
 			"parameters":{

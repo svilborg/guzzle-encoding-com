@@ -49,7 +49,14 @@ abstract class XmlAbstractCommand extends AbstractCommand
 	protected function build()
 	{
 		$this->rawXml = $this->buildXML();
-		$this->request = $this->client->post(null, null, null, array("xml"=>(trim($this->rawXml->saveXML()))));
+
+		$v1 = '<?xml version="1.0" encoding="utf-8"?><query><userid>1</userid><userkey>test</userkey><action>AddMedia</action><format/></query>';
+
+		$this->client->setDefaultOption('headers', array('Content-Type' => 'application/x-www-form-urlencoded'));
+
+		$this->request = $this->client->post(null, null, array("xml"=>(trim(($v1)))));
+
+// 		$this->client-
 	}
 
 	/**
@@ -71,68 +78,78 @@ abstract class XmlAbstractCommand extends AbstractCommand
 		$request->appendChild($userkey);
 		$request->appendChild($action);
 
-	//	$params = $request->appendChild($xml->createElement('parameters'));
+		//	$params = $request->appendChild($xml->createElement('parameters'));
 
 		// add parameters
-// 		foreach ($this->getOperation()->getParams() as $name => $arg) {
-// 			if ($this->get($name) === true) {
-// 				$params->appendChild($xml->createElement($name));
-// 			} else if (!is_null($this->get($name)) && $this->get($name) !== false) {
-// 				$params->appendChild($xml->createElement($name, $this->get($name)));
-// 			}
-// 		}
+		// 		foreach ($this->getOperation()->getParams() as $name => $arg) {
+		// 			if ($this->get($name) === true) {
+		// 				$params->appendChild($xml->createElement($name));
+		// 			} else if (!is_null($this->get($name)) && $this->get($name) !== false) {
+		// 				$params->appendChild($xml->createElement($name, $this->get($name)));
+		// 			}
+		// 		}
 
-		return ($xml);
-	}
-
-	/**
-	 * Checks the XML response for errors.
-	 * @param  EncodingResponse $xml XML response
-	 */
-	protected function handleResponseErrors($xmlResponse) {
-		if ($xmlResponse->hasError()) {
-			throw new EncodingXmlException($xmlResponse);
-		}
-	}
-
-	/**
-	 * {@inheritdoc}
-	 * @return EncodingResponse
-	 */
-	public function getResult()
-	{
-		return parent::getResult();
-	}
-
-	/**
-	 * Get the raw XML object
-	 *
-	 * @return DOMDocument
-	 * @throws CommandException
-	 */
-	public function getRawXml()
-	{
-		if (!$this->isPrepared()) {
-			throw new CommandException('The command must be prepared before retrieving the request XML');
+		return $xml;
 		}
 
-		return $this->rawXml;
-	}
-
-	/**
-	 * Returns the response body, by default with
-	 * encoded HTML entities as string.
-	 *
-	 * @param  boolean $encodeEntities Encode the HTML entities on the body?
-	 * @return string  Response body
-	 */
-	public function getResponseBody($encodeEntities = true) {
-		$body = (string) $this->getResponse()->getBody();
-
-		if ($encodeEntities) {
-			return htmlentities($body);
+		/**
+		 * Checks the XML response for errors.
+		 * @param  EncodingResponse $xml XML response
+		 */
+		protected function handleResponseErrors($xmlResponse) {
+			if ($xmlResponse->hasError()) {
+				throw new EncodingXmlException($xmlResponse);
+			}
 		}
 
-		return $body;
+		/**
+		 * {@inheritdoc}
+		 * @return EncodingResponse
+		 */
+		public function getResult()
+		{
+			return parent::getResult();
+		}
+
+		/**
+		 * Get the raw XML object
+		 *
+		 * @return DOMDocument
+		 * @throws CommandException
+		 */
+		public function getRawXml()
+		{
+			if (!$this->isPrepared()) {
+				throw new CommandException('The command must be prepared before retrieving the request XML');
+			}
+
+			return $this->rawXml;
+		}
+		/**
+		 * Get the String XML object
+		 *
+		 * @return string
+		 * @throws CommandException
+		 */
+		public function getXml()
+		{
+			return $this->getRawXml()->saveXml();
+		}
+
+		/**
+		 * Returns the response body, by default with
+		 * encoded HTML entities as string.
+		 *
+		 * @param  boolean $encodeEntities Encode the HTML entities on the body?
+		 * @return string  Response body
+		 */
+		public function getResponseBody($encodeEntities = true) {
+			$body = (string) $this->getResponse()->getBody();
+
+			if ($encodeEntities) {
+				return htmlentities($body);
+			}
+
+			return $body;
+		}
 	}
-}

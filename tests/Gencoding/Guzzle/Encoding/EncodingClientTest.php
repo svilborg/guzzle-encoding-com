@@ -1,6 +1,7 @@
 <?php
 
 use Gencoding\Guzzle\Encoding\EncodingClient;
+use Gencoding\Guzzle\Encoding\Common\Exception;
 
 class EncodingClientTest extends \PHPUnit_Framework_TestCase
 {
@@ -20,10 +21,26 @@ class EncodingClientTest extends \PHPUnit_Framework_TestCase
 		));
 	}
 
-	public function testFactoryException() {
+	public function testMissingParamsException() {
 		$this->setExpectedException("InvalidArgumentException");
 
 		$object = EncodingClient::factory();
+	}
+
+	public function testWrongAuthException() {
+		$this->setExpectedException("Gencoding\Guzzle\Encoding\Common\Exception\EncodingXmlException");
+
+		$object = EncodingClient::factory(array(
+				'base_url' => 'http://manage.encoding.com',
+				'userid'   => '1',
+				'userkey'  => 'test'
+		));
+
+		$command = $this->object->getCommand('AddMedia',
+				array()
+		);
+
+		$media = $command->execute();
 	}
 
 	public function testAddMedia() {
@@ -35,12 +52,8 @@ class EncodingClientTest extends \PHPUnit_Framework_TestCase
 		try {
 			$media = $command->execute();
 		} catch (\Exception $e) {
-			$this->fail('AddMedia command failed');
+			$this->fail('AddMedia command failed - ' . $e->getMessage());
 		}
-		// echo "<pre>";
-		// var_dump($media);
-		// echo "</pre>";die;
-		// 		$this->assertNotNull($user['id']);
 	}
 
 	protected function tearDown() {

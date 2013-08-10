@@ -66,10 +66,9 @@ class EncodingClient extends Client
 	/**
 	 * {@inheritdoc}
 	 */
-	public function createRequest($method = RequestInterface::GET, $uri = null, $headers = null, $body = null,  array $options = array())
+	public function createRequest($method = RequestInterface::POST, $uri = null, $headers = null, $body = null,  array $options = array())
 	{
 		$request = parent::createRequest($method, $uri, $headers, $body, $options);
-		$request->setHeader('Content-Type', 'text/xml');
 
 		return $request;
 	}
