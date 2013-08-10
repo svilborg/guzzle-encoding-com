@@ -4,26 +4,38 @@
 
 	"description":"Twitter REST API client",
 	"operations":{
-		"websend":{
-			"httpMethod":"GET",
-			"summary":"Returns the 20 most recent mentions for the authenticating user.",
+		"AddMedia":{
+			"httpMethod":"POST",
+			"summary":"Encoding.com API",
 
-			"class" : "\\Gridonic\\Guzzle\\SmsBox\\Command\\XmlRequestCommand",
+			"class" : "\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
 			"parameters":{
-				"cost":{
-					"description":"Specifies the number of tweets to try and retrieve",
+				"mediaid":{
+					"description":"A unique identifier for each media. This field must be specified for the following actions: UpdateMedia, ProcessMedia, CancelMedia, GetMediaInfo, GetStatus.",
 					"type":"integer"
 				},
-				"guessOperator":{
-					"description":"Returns results with an ID greater than the specified ID",
+				"action":{
+					"description":"The action to be performed in the API request.",
 					"type":"string"
 				},
-				"receiver":{
-					"description":"Returns results with an ID less than or equal to the specified ID.",
+				"source":{
+					"description":"Source media file. Must be specified only for AddMedia and AddMediaBenchmark actions.",
 					"type":"string"
 				},
-				"service":{
-					"description":"Returns results with an ID less than or equal to the specified ID.",
+				"format":{
+					"description":"",
+					"type":"string"
+				},
+				"region":{
+					"description":"",
+					"type":"string"
+				},
+				"notify":{
+					"description":"",
+					"type":"string"
+				},
+				"split_screen":{
+					"description":"",
 					"type":"string"
 				}
 			}

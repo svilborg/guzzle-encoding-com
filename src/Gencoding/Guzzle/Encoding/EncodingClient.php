@@ -14,7 +14,7 @@ class EncodingClient extends Client
 	 *
 	 * @param string $baseUrl Base URL of the web service
 	 */
-	public function __construct($baseUrl, $username, $password)
+	public function __construct($baseUrl, $userid, $userkey)
 	{
 		parent::__construct($baseUrl);
 	}
@@ -24,24 +24,23 @@ class EncodingClient extends Client
 	 *
 	 * @param array|Collection $config Configuration data. Array keys:
 	 *
-	 *    base_url - Base URL of the smsBox service endpoint
-	 *    userid - API Username
-	 *    userkey - API Key
+	 *    base_url - http(s)://manage.encoding.com
+	 *    userid   - API User Id
+	 *    userkey  - API Key
 	 *
 	 * @return EncodingClient
 	 */
 	static function factory($config = array())
 	{
-		$default  = array('test' => false);
-		$required = array('base_url', 'username', 'password');
-		$config   = Collection::fromConfig($config, $default, array('base_url', 'userid', 'userkey'));
+		$config = self::getConfigCollection($config);
 
-		$client = new self(
+		$client = new EncodingClient(
 				$config->get('base_url'),
-				$config->get('username'),
-				$config->get('password'),
+				$config->get('userid'),
+				$config->get('userkey'),
 				$config->get('test')
 		);
+
 		$client->setConfig($config);
 
 		// Add the XML service description to the client
@@ -51,6 +50,19 @@ class EncodingClient extends Client
 		return $client;
 	}
 
+	/**
+	 * Gets Config Collection instance
+	 *
+	 * @param unknown $config
+	 * @return \Guzzle\Common\Collection
+	 */
+	static function getConfigCollection ($config) {
+		$default  = array('base_url' => 'http://manage.encoding.com');
+		$required = array('userid', 'userkey');
+		$config   = Collection::fromConfig($config, $default, array('base_url', 'userid', 'userkey'));
+
+		return $config;
+	}
 
 	/**
 	 * {@inheritdoc}
