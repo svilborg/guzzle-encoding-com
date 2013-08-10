@@ -1,6 +1,6 @@
 <?php
 
-namespace Gencoding\Guzzle\Encoding\Command\Exception;
+namespace Gencoding\Guzzle\Encoding\Common\Exception;
 
 use Gencoding\Guzzle\Encoding\Common\EncodingResponse;
 use Guzzle\Common\Exception\GuzzleException;

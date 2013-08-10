@@ -1,6 +1,6 @@
 <?php
 
-namespace Gencoding\Guzzle\Encoding\Command;
+namespace Gencoding\Guzzle\Encoding\Common;
 
 /**
  * Guzzle version information

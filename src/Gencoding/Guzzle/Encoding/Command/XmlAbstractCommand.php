@@ -2,10 +2,10 @@
 
 namespace Gencoding\Guzzle\Encoding\Command;
 
-use Gencoding\Guzzle\Encoding\Command\Exception\EncodingXmlException;
 
+use Gencoding\Guzzle\Encoding\Common;
 use Gencoding\Guzzle\Encoding\Common\EncodingResponse;
-use Gencoding\Guzzle\Encoding\Command\Exception;
+use Gencoding\Guzzle\Encoding\Common\Exception\EncodingXmlException;
 
 use Guzzle\Service\Command\AbstractCommand;
 use Guzzle\Service\Exception\CommandException;

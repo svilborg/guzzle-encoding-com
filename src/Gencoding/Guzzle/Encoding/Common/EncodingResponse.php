@@ -1,10 +1,9 @@
 <?php
 
-namespace Gencoding\Guzzle\Encoding\Command;
+namespace Gencoding\Guzzle\Encoding\Common;
 
-use Gencoding\Guzzle\Encoding\Command\Exception\EncodingXmlException;
+use Gencoding\Guzzle\Encoding\Common\Exception\EncodingXmlException;
 
-use Guzzle\Service\Exception\CommandException;
 
 /**
  * Encoding.com Response XML Class

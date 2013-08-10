@@ -33,11 +33,13 @@ class EncodingClientTest extends \PHPUnit_Framework_TestCase
 		);
 
 		try {
-			$user = $command->execute();
+			$media = $command->execute();
 		} catch (\Exception $e) {
 			$this->fail('AddMedia command failed');
 		}
-
+		// echo "<pre>";
+		// var_dump($media);
+		// echo "</pre>";die;
 		// 		$this->assertNotNull($user['id']);
 	}
 
