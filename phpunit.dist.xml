@@ -1,0 +1,14 @@
+<phpunit backupGlobals="true" bootstrap="vendor/autoload.php"
+	colors="true">
+
+	<php>
+		<const name="x" value="y" />
+	</php>
+
+	<testsuites>
+		<testsuite name="Integration Tests">
+			<directory>tests</directory>
+		</testsuite>
+	</testsuites>
+
+</phpunit>

@@ -21,15 +21,12 @@ try {
 	var_dump($e->getMessage());
 }
 
+out($command->getRawXml()->saveXML());
+die;
 
-
-
-echo "<pre>";
-var_dump($command->getRawXml()->saveXML());
-echo "</pre>";die;
+function out($str) {
+	echo "\n";
+	echo($str);
+	echo "\n";
+}
 // $r = $s->execute($command);
-
-// echo "<pre>";
-// var_dump($r);
-// echo "</pre>";
-// die;

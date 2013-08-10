@@ -39,6 +39,105 @@
 
 			}
 
+		},
+		"AddMediaBenchmark":{
+			"httpMethod":"POST",
+			"summary":"",
+			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
+			"parameters":{
+
+			}
+
+		},
+		"UpdateMedia":{
+			"httpMethod":"POST",
+			"summary":"",
+			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
+			"parameters":{
+
+			}
+
+		},
+		"ProcessMedia":{
+			"httpMethod":"POST",
+			"summary":"",
+			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
+			"parameters":{
+
+			}
+
+		},
+		"CancelMedia":{
+			"httpMethod":"POST",
+			"summary":"",
+			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
+			"parameters":{
+
+			}
+
+		},
+		"GetMediaList":{
+			"httpMethod":"POST",
+			"summary":"",
+			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
+			"parameters":{
+
+			}
+
+		},
+		"GetStatus":{
+			"httpMethod":"POST",
+			"summary":"",
+			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
+			"parameters":{
+
+			}
+
+		},
+		"GetMediaInfo":{
+			"httpMethod":"POST",
+			"summary":"",
+			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
+			"parameters":{
+
+			}
+
+		},
+		"RestartMedia":{
+			"httpMethod":"POST",
+			"summary":"",
+			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
+			"parameters":{
+
+			}
+
+		},
+		"RestartMediaErrors":{
+			"httpMethod":"POST",
+			"summary":"",
+			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
+			"parameters":{
+
+			}
+
+		},
+		"RestartMediaTask":{
+			"httpMethod":"POST",
+			"summary":"",
+			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
+			"parameters":{
+
+			}
+
+		},
+		"StopMedia":{
+			"httpMethod":"POST",
+			"summary":"",
+			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
+			"parameters":{
+
+			}
+
 		}
 
 	}
