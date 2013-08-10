@@ -47,17 +47,19 @@ class EncodingXmlException extends \Exception implements GuzzleException
 	public function __construct($xmlResponse) {
 		$this->response = $xmlResponse;
 
-		if ($xmlResponse->hasError()) {
-			$this->errorType = $xmlResponse->getErrorType();
+// 		if ($xmlResponse->hasError()) {
+// 			$this->errorType = $xmlResponse->getErrorType();
 
-			if ($xmlResponse->getErrorValue() !== null) {
-				$this->message = $xmlResponse->getErrorValue();
-			} else if (array_key_exists($this->errorType, self::$errorTypes)) {
-				$this->message = self::$errorTypes[$this->errorType];
-			}
+// 			if ($xmlResponse->getErrorValue() !== null) {
+// 				$this->message = $xmlResponse->getErrorValue();
+// 			} else if (array_key_exists($this->errorType, self::$errorTypes)) {
+// 				$this->message = self::$errorTypes[$this->errorType];
+// 			}
 
-			$this->message .= ' ('. $this->errorType .')';
-		}
+// 			$this->message .= ' ('. $this->errorType .')';
+// 		}
+
+		$this->message = $xmlResponse;
 
 		parent::__construct($this->message, $code = 0);
 	}

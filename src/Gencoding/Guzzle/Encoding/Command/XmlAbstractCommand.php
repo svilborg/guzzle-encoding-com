@@ -49,7 +49,7 @@ abstract class XmlAbstractCommand extends AbstractCommand
 	protected function build()
 	{
 		$this->rawXml = $this->buildXML();
-		$this->request = $this->client->post(null, null, $this->rawXml->saveXML());
+		$this->request = $this->client->post(null, null, null, array("xml"=>(trim($this->rawXml->saveXML()))));
 	}
 
 	/**
@@ -71,18 +71,18 @@ abstract class XmlAbstractCommand extends AbstractCommand
 		$request->appendChild($userkey);
 		$request->appendChild($action);
 
-		$params = $request->appendChild($xml->createElement('parameters'));
+	//	$params = $request->appendChild($xml->createElement('parameters'));
 
 		// add parameters
-		foreach ($this->getOperation()->getParams() as $name => $arg) {
-			if ($this->get($name) === true) {
-				$params->appendChild($xml->createElement($name));
-			} else if (!is_null($this->get($name)) && $this->get($name) !== false) {
-				$params->appendChild($xml->createElement($name, $this->get($name)));
-			}
-		}
+// 		foreach ($this->getOperation()->getParams() as $name => $arg) {
+// 			if ($this->get($name) === true) {
+// 				$params->appendChild($xml->createElement($name));
+// 			} else if (!is_null($this->get($name)) && $this->get($name) !== false) {
+// 				$params->appendChild($xml->createElement($name, $this->get($name)));
+// 			}
+// 		}
 
-		return $xml;
+		return ($xml);
 	}
 
 	/**
