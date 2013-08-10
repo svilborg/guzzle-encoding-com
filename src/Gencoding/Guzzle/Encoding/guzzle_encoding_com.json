@@ -105,7 +105,8 @@
 				},
 				"extended":{
 					"description":"Extended Info",
-					"type":"string"
+					"type":"string",
+					"default":"no"
 				}
 
 			}

@@ -66,7 +66,7 @@ abstract class XmlAbstractCommand extends AbstractCommand
 		$request = $xml->appendChild($xml->createElement('query'));
 
 		// add action, userid and userkey params
-		$userid = $xml->createElement('userid', $this->client->getConfig('userid'));
+		$userid  = $xml->createElement('userid', $this->client->getConfig('userid'));
 		$userkey = $xml->createElement('userkey', $this->client->getConfig('userkey'));
 		$action  = $xml->createElement('action', $this->getName());
 
@@ -74,16 +74,13 @@ abstract class XmlAbstractCommand extends AbstractCommand
 		$request->appendChild($userkey);
 		$request->appendChild($action);
 
-		//	$params = $request->appendChild($xml->createElement('parameters'));
-
-		// add parameters
-		// 		foreach ($this->getOperation()->getParams() as $name => $arg) {
-		// 			if ($this->get($name) === true) {
-		// 				$params->appendChild($xml->createElement($name));
-		// 			} else if (!is_null($this->get($name)) && $this->get($name) !== false) {
-		// 				$params->appendChild($xml->createElement($name, $this->get($name)));
-		// 			}
-		// 		}
+		foreach ($this->getOperation()->getParams() as $name => $arg) {
+			if ($this->get($name) === true) {
+				$request->appendChild($xml->createElement($name));
+			} else if (!is_null($this->get($name)) && $this->get($name) !== false) {
+				$request->appendChild($xml->createElement($name, $this->get($name)));
+			}
+		}
 
 		return $xml;
 	}

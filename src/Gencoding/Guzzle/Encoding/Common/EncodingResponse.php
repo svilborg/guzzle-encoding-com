@@ -16,18 +16,27 @@ class EncodingResponse
 	 */
 	protected $xmlElement;
 
+	protected $xmlString;
+
 	/**
 	 * Constructor.
 	 *
 	 * @param SimpleXMLElement $xmlResponse The XML response
 	 */
 	public function __construct($xmlString) {
+
+		$this->xmlString = $xmlString;
+
 		try {
 			$this->xmlElement = new \SimpleXMLElement($xmlString);
 
 		} catch (\Exception $e) {
 			throw new EncodingXmlException('Could not parse the XML response.');
 		}
+	}
+
+	public function  getXml () {
+		return $this->xmlString;
 	}
 
 	/**
