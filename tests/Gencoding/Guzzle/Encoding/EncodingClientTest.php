@@ -21,27 +21,27 @@ class EncodingClientTest extends \PHPUnit_Framework_TestCase
 		));
 	}
 
-	public function testMissingParamsException() {
-		$this->setExpectedException("InvalidArgumentException");
+// 	public function testMissingParamsException() {
+// 		$this->setExpectedException("InvalidArgumentException");
 
-		$object = EncodingClient::factory();
-	}
+// 		$object = EncodingClient::factory();
+// 	}
 
-	public function testWrongAuthException() {
-		$this->setExpectedException("Gencoding\Guzzle\Encoding\Common\Exception\EncodingXmlException");
+// 	public function testWrongAuthException() {
+// 		$this->setExpectedException("Gencoding\Guzzle\Encoding\Common\Exception\EncodingXmlException");
 
-		$object = EncodingClient::factory(array(
-				'base_url' => 'http://manage.encoding.com',
-				'userid'   => '1',
-				'userkey'  => 'test'
-		));
+// 		$object = EncodingClient::factory(array(
+// 				'base_url' => 'http://manage.encoding.com',
+// 				'userid'   => '1',
+// 				'userkey'  => 'test'
+// 		));
 
-		$command = $this->object->getCommand('AddMedia',
-				array()
-		);
+// 		$command = $this->object->getCommand('AddMedia',
+// 				array()
+// 		);
 
-		$media = $command->execute();
-	}
+// 		$media = $command->execute();
+// 	}
 
 	public function testAddMedia() {
 
@@ -51,7 +51,8 @@ class EncodingClientTest extends \PHPUnit_Framework_TestCase
 
 		try {
 			$media = $command->execute();
-		} catch (\Exception $e) {
+		} catch (Gencoding\Guzzle\Encoding\Common\Exception\EncodingXmlException $e) {
+
 			$this->fail('AddMedia command failed - ' . $e->getMessage());
 		}
 	}

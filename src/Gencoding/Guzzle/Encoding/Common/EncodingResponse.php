@@ -31,22 +31,21 @@ class EncodingResponse
 	}
 
 	/**
-	 * Checks whether the XML response contains any errors.
-	 * @return boolean True if the XML response has errors, false else.
+	 * Checks if the XML response contains an error
+	 * @return boolean True if terror
 	 */
 	public function hasError() {
 		return isset($this->xmlElement->errors);
 	}
 
 	/**
-	 * Returns the error value if one is set.
-	 * Errors can have an optional value in the XML API response.
-	 * @return string The error value in the XML response
+	 * Returns the error message
+	 * @return string Error message
 	 */
-	public function getErrorValue() {
+	public function getErrorMessage() {
 		$errorValue = null;
-		if ($this->hasError() && (string) $this->xmlElement->errors !== '') {
-			$errorValue = (string)$this->xmlElement->errors->errorr;
+		if ($this->hasError() ) {
+			$errorValue = (string)$this->xmlElement->errors->error;
 		}
 		return $errorValue;
 	}

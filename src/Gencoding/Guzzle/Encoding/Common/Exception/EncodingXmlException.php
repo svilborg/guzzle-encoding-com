@@ -23,21 +23,6 @@ class EncodingXmlException extends \Exception implements GuzzleException
 	protected $message = 'Unknown exception';
 
 	/**
-	 * XML API response error type
-	 * @var string
-	 */
-	protected $errorType;
-
-	/**
-	 * Mapping of XML API error types
-	 * @var array
-	 */
-	protected static $errorTypes = array(
-			'xmlparseerror'       => "The submitted XML document is not valid.",
-			'dtdparseerror'       => "The submitted XML document doesn't properly follow the DTD."
-	);
-
-	/**
 	 * Public constructor.
 	 *
 	 * @param string            $message Exception message
@@ -48,27 +33,10 @@ class EncodingXmlException extends \Exception implements GuzzleException
 		$this->response = $xmlResponse;
 
 		if ($xmlResponse->hasError()) {
-			$this->message = $xmlResponse->getErrorValue();
+			$this->message = $xmlResponse->getErrorMessage();
 		}
 
-		//$this->message = $xmlResponse;
-
 		parent::__construct($this->message);
-	}
-
-	/**
-	 * Returns the error type.
-	 * @return string XML error type
-	 */
-	public function getErrorType() {
-		return $this->errorType;
-	}
-
-	/**
-	 * @return array All possible error types and associated error messages.
-	 */
-	public static function getErrorTypes() {
-		return static::$errorTypes;
 	}
 
 	/**

@@ -55,8 +55,6 @@ abstract class XmlAbstractCommand extends AbstractCommand
 		$this->client->setDefaultOption('headers', array('Content-Type' => 'application/x-www-form-urlencoded'));
 
 		$this->request = $this->client->post(null, null, array("xml"=>(trim(($v1)))));
-
-// 		$this->client-
 	}
 
 	/**
