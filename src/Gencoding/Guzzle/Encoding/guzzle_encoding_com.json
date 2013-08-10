@@ -1,0 +1,32 @@
+{
+	"name":"Twitter",
+	"apiVersion":"1.1",
+
+	"description":"Twitter REST API client",
+	"operations":{
+		"websend":{
+			"httpMethod":"GET",
+			"summary":"Returns the 20 most recent mentions for the authenticating user.",
+
+			"class" : "\\Gridonic\\Guzzle\\SmsBox\\Command\\XmlRequestCommand",
+			"parameters":{
+				"cost":{
+					"description":"Specifies the number of tweets to try and retrieve",
+					"type":"integer"
+				},
+				"guessOperator":{
+					"description":"Returns results with an ID greater than the specified ID",
+					"type":"string"
+				},
+				"receiver":{
+					"description":"Returns results with an ID less than or equal to the specified ID.",
+					"type":"string"
+				},
+				"service":{
+					"description":"Returns results with an ID less than or equal to the specified ID.",
+					"type":"string"
+				}
+			}
+		}
+	}
+}

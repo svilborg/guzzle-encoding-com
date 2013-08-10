@@ -10,13 +10,23 @@ use Guzzle\Service\Description\ServiceDescription;
 class EncodingClient extends Client
 {
 	/**
+	 * Client constructor
+	 *
+	 * @param string $baseUrl Base URL of the web service
+	 */
+	public function __construct($baseUrl, $username, $password)
+	{
+		parent::__construct($baseUrl);
+	}
+
+	/**
 	 * Create new EncodingClient Instance
 	 *
 	 * @param array|Collection $config Configuration data. Array keys:
 	 *
 	 *    base_url - Base URL of the smsBox service endpoint
-	 *    username - API username
-	 *    password - API password
+	 *    userid - API Username
+	 *    userkey - API Key
 	 *
 	 * @return EncodingClient
 	 */
@@ -24,7 +34,7 @@ class EncodingClient extends Client
 	{
 		$default  = array('test' => false);
 		$required = array('base_url', 'username', 'password');
-		$config   = Collection::fromConfig($config, $default, $required);
+		$config   = Collection::fromConfig($config, $default, array('base_url', 'userid', 'userkey'));
 
 		$client = new self(
 				$config->get('base_url'),
@@ -35,21 +45,12 @@ class EncodingClient extends Client
 		$client->setConfig($config);
 
 		// Add the XML service description to the client
-		$description = ServiceDescription::factory(__DIR__ . DIRECTORY_SEPARATOR . 'guzzle_smsbox.json');
+		$description = ServiceDescription::factory(__DIR__ . DIRECTORY_SEPARATOR . 'guzzle_encoding_com.json');
 		$client->setDescription($description);
 
 		return $client;
 	}
 
-	/**
-	 * Client constructor
-	 *
-	 * @param string $baseUrl Base URL of the web service
-	 */
-	public function __construct($baseUrl, $username, $password)
-	{
-		parent::__construct($baseUrl);
-	}
 
 	/**
 	 * {@inheritdoc}

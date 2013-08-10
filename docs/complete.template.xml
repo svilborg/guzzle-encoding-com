@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<query>
+	<!-- Main fields -->
+	<userid>[UserID]</userid>
+	<userkey>[UserKey]</userkey>
+	<action>[Action]</action>
+	<mediaid>[MediaID]</mediaid>
+	<source>[SourceFile]</source>
+
+	<!-- if multiple SourceFile added, they will be concatenated or join to
+		split screen -->
+	<source>[SourceFile1]</source>
+	...
+	<source>[SourceFileN]</source>
+
+	<!-- Split Screen fields (OPTIONAL) -->
+	<split_screen>
+		<columns>[ColumnsNumber]</columns>
+		<rows>[RowsNumber]</rows>
+		<padding_left>[PaddingLeftInPx]</padding_left>
+		<padding_right>[PaddingRightInPx]</padding_right>
+		<padding_bottom>[PaddingBottomInPx]</padding_bottom>
+		<padding_top>[PaddingTopInPx]</padding_top>
+	</split_screen>
+
+	<region>[us-east-1|us-west-1|us-west-2|eu-west-1|ap-southeast-1|ap-southeast-2|ap-northeast-1|sa-east-1]
+	</region>
+	<notify>[NotifyURL]</notify>
+	<notify_encoding_errors>[NotifyEncodingErrorURL]
+	</notify_encoding_errors>
+	<format>
+
+		<!-- Format fields -->
+		<noise_reduction>luma_spatial:chroma_spatial:luma_temp
+		</noise_reduction>
+		<output>[Output format]</output>
+		<video_codec>[Video Codec]</video_codec>
+		<audio_codec>[Audio Codec]</audio_codec>
+		<bitrate>[Video bitrate]</bitrate>
+		<audio_bitrate>[Audio bitrate]</audio_bitrate>
+		<audio_sample_rate>[Audio quality]</audio_sample_rate>
+		<audio_channels_number>[Audio channels number]</audio_channels_number>
+		<audio_volume>[Volume]</audio_volume>
+		<audio_normalization>[0-100]</audio_normalization>
+		<framerate>[Frame Rate]</framerate>
+		<framerate_upper_threshold>[Frame Rate Upper Threshold]
+		</framerate_upper_threshold>
+		<size>[Size]</size>
+		<fade_in>[FadeInStart:FadeInDuration]</fade_in>
+		<fade_out>[FadeOutStart:FadeOutDuration]</fade_out>
+		<crop_left>[Crop Left]</crop_left>
+		<crop_top>[Crop Top]</crop_top>
+		<crop_right>[Crop Right]</crop_right>
+		<crop_bottom>[Crop Bottom]</crop_bottom>
+		<keep_aspect_ratio>[yes/no]</keep_aspect_ratio>
+		<set_aspect_ratio>[ASPECT_RATIO|source]</set_aspect_ratio>
+		<add_meta>[yes/no]</add_meta>
+		<hint>[yes/no]</hint>
+		<rc_init_occupancy>[RC Occupancy]</rc_init_occupancy>
+		<minrate>[Min Rate]</minrate>
+		<maxrate>[Max Rate]</maxrate>
+		<bufsize>[RC Buffer Size]</bufsize>
+		<keyframe>[Keyframe Period (GOP)]</keyframe>
+		<start>[Start From]</start>
+		<duration>[Result Duration]</duration>
+		<output>mpeg2</output>
+		<keyframe>[12|15|25|30]</keyframe>
+		<bframes>[2|0]</bframes>
+		<gop>[cgop|sgop]</gop>
+		<output>[PRESET_NAME]</output>
+
+		<!-- Metadata fields (OPTIONAL) -->
+		<metadata>
+			<title>[Title]</title>
+			<copyright>[Copyright]</copyright>
+			<author>[Author]</author>
+			<description>[Description]</description>
+			<album>[Album]</album>
+		</metadata>
+
+		<!-- Destination fields -->
+		<destination>[DestFile]</destination>
+		<destination>[DestFile2]</destination>
+		...
+		<destination>[DestFileN]</destination>
+
+		<!-- Logo fields (OPTIONAL) -->
+		<logo>
+			<logo_source>[LogoURL]</logo_source>
+			<logo_x>[LogoLeft]</logo_x>
+			<logo_y>[LogoTop]</logo_y>
+			<logo_mode>[LogoMode]</logo_mode>
+			<logo_threshold>[LogoTreshold]</logo_threshold>
+		</logo>
+
+		<!-- Overlay fields (OPTIONAL) -->
+		<overlay>
+			<overlay_source>[Overlay1Source]</overlay_source>
+			<overlay_x>[Overlay1PositionX]</overlay_x>
+			<overlay_y>[Overlay1PositionY]</overlay_y>
+			<size>[Overlay1Size]</size>
+			<overlay_start>[OverlayNStartInSeconds]</overlay_start>
+			<overlay_duration>[OverlayNDurationInSeconds]</overlay_duration>
+		</overlay>
+		...
+		<overlay>
+			<overlay_source>[OverlayNSource]</overlay_source>
+			<overlay_x>[OverlayNPositionX]</overlay_x>
+			<overlay_y>[OverlayNPositionY]</overlay_y>
+			<size>[OverlayNSize]</size>
+			<overlay_start>[OverlayNStartInSeconds]</overlay_start>
+			<overlay_duration>[OverlayNDurationInSeconds]</overlay_duration>
+		</overlay>
+
+		<!-- Text Overlay fields (OPTIONAL) -->
+		<text_overlay>
+			<text>[Text1]</text>
+			<font_source>[Font1Source]</font_source>
+			<font_size>[Font1Size]</font_size>
+			<font_rotate>[Font1Rotate]</font_rotate>
+			<font_color>[Font1Color]</font_color>
+			<align_center>[0|1]</align_center>
+			<overlay_x>[TextOverlay1PositionX]</overlay_x>
+			<overlay_y>[TextOverlay1PositionY]</overlay_y>
+			<size>[TextOverlay1Size]</size>
+			<overlay_start>[TextOverlay1StartInSeconds]</overlay_start>
+			<overlay_duration>[TextOverlay1DurationInSeconds]</overlay_duration>
+		</text_overlay>
+		...
+		<text_overlay>
+			<text>[TextN]</text>
+			<font_source>[FontNSource]</font_source>
+			<font_size>[FontNSize]</font_size>
+			<font_rotate>[FontNRotate]</font_rotate>
+			<font_color>[FontNColor]</font_color>
+			<align_center>[0|1]</align_center>
+			<overlay_x>[TextOverlayNPositionX]</overlay_x>
+			<overlay_y>[TextOverlayNPositionY]</overlay_y>
+			<size>[TextOverlayNSize]</size>
+			<overlay_start>[TextOverlayNStartInSeconds]</overlay_start>
+			<overlay_duration>[TextOverlayNDurationInSeconds]</overlay_duration>
+		</text_overlay>
+
+
+		<!-- Video codec parameters (OPTIONAL, while only for libx264 video codec) -->
+		<video_codec_parameters> To see the example for parameters please
+			follow this link below
+			*
+		</video_codec_parameters>
+
+		<!-- Profile & Level (OPTIONAL, while only for libx264 video codec) -->
+		<profile>[high/main/baseline]</profile>
+
+		<level>[11/30/51]</level><!--drop the decimal, example 3.0 is 30 -->
+
+		<!-- Turbo Encoding switch (OPTIONAL) -->
+		<turbo>[yes/no]</turbo>
+
+		<!-- Video rotation (OPTIONAL) -->
+		<rotate>def|0|90|270</rotate>
+		<set_rotate>def|0|90|270</set_rotate>
+
+		<audio_sync>[1..N]</audio_sync>
+		<video_sync>old|passthrough|cfr|vfr|auto</video_sync>
+		<force_interlaced>tff|bff|no</force_interlaced>
+		<strip_chapters>[yes|no]</strip_chapters>
+	</format>
+</query>
