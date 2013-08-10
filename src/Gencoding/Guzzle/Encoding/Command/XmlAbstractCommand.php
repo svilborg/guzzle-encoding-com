@@ -19,7 +19,7 @@ abstract class XmlAbstractCommand extends AbstractCommand
 	 * The XML object used as body in the request
 	 * @var DOMDocument
 	 */
-	protected $requestXml;
+	protected $rawXml;
 
 	/**
 	 * Create the result of the command after the request has been completed.
@@ -48,8 +48,41 @@ abstract class XmlAbstractCommand extends AbstractCommand
 	 */
 	protected function build()
 	{
-		$this->requestXml = $this->buildXML();
-		$this->request = $this->client->post(null, null, $this->requestXml->saveXML());
+		$this->rawXml = $this->buildXML();
+		$this->request = $this->client->post(null, null, $this->rawXml->saveXML());
+	}
+
+	/**
+	 * Builds the XML for the request body.
+	 * @return DOMDocument XML in DOMDocument format
+	 */
+	public function buildXML() {
+		$xml = new \DOMDocument('1.0', 'utf-8');
+		$xml->formatOutput = true;
+
+		$request = $xml->appendChild($xml->createElement('query'));
+
+		// add action, userid and userkey params
+		$userid = $xml->createElement('userid', $this->client->getConfig('userid'));
+		$userkey = $xml->createElement('userkey', $this->client->getConfig('userkey'));
+		$action  = $xml->createElement('action', $this->getName());
+
+		$request->appendChild($userid);
+		$request->appendChild($userkey);
+		$request->appendChild($action);
+
+		$params = $request->appendChild($xml->createElement('parameters'));
+
+		// add parameters
+		foreach ($this->getOperation()->getParams() as $name => $arg) {
+			if ($this->get($name) === true) {
+				$params->appendChild($xml->createElement($name));
+			} else if (!is_null($this->get($name)) && $this->get($name) !== false) {
+				$params->appendChild($xml->createElement($name, $this->get($name)));
+			}
+		}
+
+		return $xml;
 	}
 
 	/**
@@ -72,18 +105,18 @@ abstract class XmlAbstractCommand extends AbstractCommand
 	}
 
 	/**
-	 * Get the request XML object associated with the command
+	 * Get the raw XML object
 	 *
 	 * @return DOMDocument
-	 * @throws CommandException if the command has not been prepared
+	 * @throws CommandException
 	 */
-	public function getRequestXml()
+	public function getRawXml()
 	{
 		if (!$this->isPrepared()) {
 			throw new CommandException('The command must be prepared before retrieving the request XML');
 		}
 
-		return $this->requestXml;
+		return $this->rawXml;
 	}
 
 	/**

@@ -37,8 +37,7 @@ class EncodingClient extends Client
 		$client = new EncodingClient(
 				$config->get('base_url'),
 				$config->get('userid'),
-				$config->get('userkey'),
-				$config->get('test')
+				$config->get('userkey')
 		);
 
 		$client->setConfig($config);
