@@ -12,6 +12,15 @@ Pragma: no-cache
 
 <?xml version="1.0"?>
 <response>
-	<message>Added</message>
-	<MediaID>123213</MediaID>
+	<media>
+		<mediafile>["SourceFile"]</mediafile>
+		<mediaid>["MediaID"]</mediaid>
+		<mediastatus>Closed</mediastatus>
+		<createdate>[Date]</createdate>
+		<startdate>[Date]</startdate>
+		<finishdate>[Date]</finishdate>
+	</media>
+	<media>
+	...
+	</media>
 </response>

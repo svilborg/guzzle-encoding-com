@@ -1,0 +1,61 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Sun, 11 Aug 2013 16:37:14 GMT
+Content-Type: text/xml
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-Powered-By: PHP/5.4.10
+Set-Cookie: PHPSESSID=evriroro8702ciaf7ori42a7b3; path=/
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+
+<?xml version="1.0"?>
+<response>
+	<id>[MediaID]</id>
+	<userid>[UserID]</userid>
+	<sourcefile>[SourceFile]</sourcefile>
+	<status>[MediaStatus]</status>
+	<notifyurl>[NotifyURL]</notifyurl>
+	<created>[Date]</created>
+	<started>[Date]</started>
+	<finished>[Date]</finished>
+	<prevstatus>[MediaStatus]</prevstatus>
+	<downloaded>[Date]</downloaded>
+	<uploaded>[Date]</uploaded>
+	<time_left>[TotalTimeLeft]</time_left>
+	<progress>[TotalProgress]</progress>
+	<time_left_current>[StatusTimeLeft]</time_left_current>
+	<progress_current>[StatusProgress]</progress_current>
+	<format>
+		<id>[ID]</id>
+		<status>[Status]</status>
+		<created>[Date]</created>
+		<started>[Date]</started>
+		<finished>[Date]</finished>
+		<s3_destination>[TempS3Link]</s3_destination> <!-- optional -->
+		<cf_destination>[TempCFLink]</cf_destination> <!-- optional -->
+		<destination>[URL]</destination>
+		<destination_status>[Saved|Error (ErrorDescription)]</destination_status>
+		<destination>[URL_2]</destination>
+		<destination_status>[Saved|Error (ErrorDescription)]</destination_status>
+		<destination>[URL_N]</destination>
+		<destination_status>[Saved|Error (ErrorDescription)]</destination_status>
+	</format>
+
+	<format>
+		<id>[ID]</id>
+		<status>[Status]</status>
+		<created>[Date]</created>
+		<started>[Date]</started>
+		<finished>[Date]</finished>
+		<s3_destination>[TempS3Link]</s3_destination> <!-- optional -->
+		<cf_destination>[TempCFLink]</cf_destination> <!-- optional -->
+		<destination>[URL]</destination>
+		<destination_status>[Saved|Error (ErrorDescription)]</destination_status>
+		<destination>[URL_2]</destination>
+		<destination_status>[Saved|Error (ErrorDescription)]</destination_status>
+		<destination>[URL_N]</destination>
+		<destination_status>[Saved|Error (ErrorDescription)]</destination_status>
+	</format>
+</response>
