@@ -42,6 +42,25 @@ class EncodingResponse
     }
 
     /**
+     *
+     * @return \Gencoding\Guzzle\Encoding\Common\SimpleXMLElement
+     */
+    public function getXmlElement()
+    {
+        return $this->xmlElement;
+    }
+
+    /**
+     * XML Result as string
+     *
+     * @return string
+     */
+    public function getXmlString()
+    {
+        return $this->xmlElement ? trim($this->xmlElement->saveXML()) : "";
+    }
+
+    /**
      * Returns the error message
      *
      * @return string Error message
@@ -57,9 +76,11 @@ class EncodingResponse
 
     /**
      * XML Result as string
+     *
+     * @return string
      */
     public function __toString()
     {
-        return $this->xmlElement ? $this->xmlElement->saveXML() : "";
+        return $this->getXmlString();
     }
 }
