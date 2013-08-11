@@ -1,3 +1,3 @@
-PHP Library for Encoding.com's XML API 
+Guzzle PHP Library for Encoding.com's XML API 
 ================================================
 
