@@ -10,11 +10,11 @@ if (! file_exists(dirname(__DIR__) . '/composer.lock')) {
 $autoloader = require dirname(__DIR__) . '/vendor/autoload.php';
 
 // Register services with the GuzzleTestCase
-Guzzle\Tests\GuzzleTestCase::setMockBasePath(__DIR__ . '/mock');
+Guzzle\Tests\GuzzleTestCase::setMockBasePath(__DIR__ . '/mocks');
 
 Guzzle\Tests\GuzzleTestCase::setServiceBuilder(\Guzzle\Service\Builder\ServiceBuilder::factory(array(
-    'test.service' => array(
-        'class' => 'Gencoding.Guzzle.Encoding.EncodingClient',
+    'test' => array(
+        'class' => 'Gencoding\Guzzle\Encoding\EncodingClient',
         'params' => array(
             'base_url' => 'http://localhost',
             'userid' => 'xx',

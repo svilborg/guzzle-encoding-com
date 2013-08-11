@@ -1,0 +1,19 @@
+HTTP/1.1 200 OK
+Server: Apache
+Content-Type: text/xml;charset=UTF-8
+Content-Length: 55
+
+<?xml version="1.0"?>
+<response>
+	<bitrate>1807k</bitrate>
+	<duration>6464.83</duration>
+	<video_codec>mpeg4</video_codec>
+	<video_bitrate>1679k</video_bitrate>
+	<frame_rate>23.98</frame_rate>
+	<size>640x352</size>
+	<pixel_aspect_ratio>1:1</pixel_aspect_ratio>
+	<display_aspect_ratio>20:11</display_aspect_ratio>
+	<audio_codec>ac3</audio_codec>
+	<audio_sample_rate>48000</audio_sample_rate>
+	<audio_channels>2</audio_channels>
+</response>

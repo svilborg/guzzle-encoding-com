@@ -1,12 +1,9 @@
 <?php
-
 namespace Gencoding\Guzzle\Encoding\Command;
-
 
 use Gencoding\Guzzle\Encoding\Common;
 use Gencoding\Guzzle\Encoding\Common\EncodingResponse;
 use Gencoding\Guzzle\Encoding\Common\Exception\EncodingXmlException;
-
 use Guzzle\Service\Command\AbstractCommand;
 use Guzzle\Service\Exception\CommandException;
 
@@ -15,134 +12,150 @@ use Guzzle\Service\Exception\CommandException;
  */
 abstract class XmlAbstractCommand extends AbstractCommand
 {
-	/**
-	 * The XML object used as body in the request
-	 * @var DOMDocument
-	 */
-	protected $rawXml;
 
-	/**
-	 * Create the result of the command after the request has been completed.
-	 * We expect the response to be an XML, so this method converts the repons
-	 * to a SimpleXMLElement object. Also, exceptions are thrown accordingly.
-	 */
-	protected function process()
-	{
-		// Uses the response object by default
-		$this->result = $this->getRequest()->getResponse();
+    /**
+     * The XML object used as body in the request
+     *
+     * @var DOMDocument
+     */
+    protected $rawXml;
 
-		$contentType = $this->result->getContentType();
+    /**
+     * Create the result of the command after the request has been completed.
+     * We expect the response to be an XML, so this method converts the repons
+     * to a SimpleXMLElement object. Also, exceptions are thrown accordingly.
+     */
+    protected function process()
+    {
+        // Uses the response object by default
+        $this->result = $this->getRequest()->getResponse();
 
-		if (stripos($contentType, 'xml') === false) {
-			throw new EncodingXmlException('The Response is not in a valid XML Content Type.');
-		}
+        $contentType = $this->result->getContentType();
 
-		$body = trim($this->result->getBody(true));
-		$this->result = new EncodingResponse($body);
+        if (stripos($contentType, 'xml') === false) {
+            throw new EncodingXmlException('The Response is not in a valid XML Content Type.');
+        }
 
-		$this->handleResponseErrors($this->result);
-	}
+        $body = trim($this->result->getBody(true));
+        $this->result = new EncodingResponse($body);
 
-	/**
-	 * Prepares the request to the API.
-	 */
-	protected function build()
-	{
-		$this->rawXml = $this->buildXML();
+        $this->handleResponseErrors($this->result);
+    }
 
-		$this->client->setDefaultOption('headers', array('Content-Type' => 'application/x-www-form-urlencoded'));
+    /**
+     * Prepares the request to the API.
+     */
+    protected function build()
+    {
+        $this->rawXml = $this->buildXML();
 
-		$this->request = $this->client->post(null, null, array("xml"=>($this->rawXml->saveXML())));
-	}
+        $this->client->setDefaultOption('headers', array(
+            'Content-Type' => 'application/x-www-form-urlencoded'
+        ));
 
-	/**
-	 * Builds the XML for the request body.
-	 * @return DOMDocument XML in DOMDocument format
-	 */
-	public function buildXML() {
-		$xml = new \DOMDocument('1.0', 'utf-8');
-		$xml->formatOutput = true;
+        $this->request = $this->client->post(null, null, array(
+            "xml" => ($this->rawXml->saveXML())
+        ));
+    }
 
-		$request = $xml->appendChild($xml->createElement('query'));
+    /**
+     * Builds the XML for the request body.
+     *
+     * @return DOMDocument XML in DOMDocument format
+     */
+    public function buildXML()
+    {
+        $xml = new \DOMDocument('1.0', 'utf-8');
+        $xml->formatOutput = true;
 
-		// add action, userid and userkey params
-		$userid  = $xml->createElement('userid', $this->client->getConfig('userid'));
-		$userkey = $xml->createElement('userkey', $this->client->getConfig('userkey'));
-		$action  = $xml->createElement('action', $this->getName());
+        $request = $xml->appendChild($xml->createElement('query'));
 
-		$request->appendChild($userid);
-		$request->appendChild($userkey);
-		$request->appendChild($action);
+        // add action, userid and userkey params
+        $userid = $xml->createElement('userid', $this->client->getConfig('userid'));
+        $userkey = $xml->createElement('userkey', $this->client->getConfig('userkey'));
+        $action = $xml->createElement('action', $this->getName());
 
-		foreach ($this->getOperation()->getParams() as $name => $arg) {
-			if ($this->get($name) === true) {
-				$request->appendChild($xml->createElement($name));
-			} else if (!is_null($this->get($name)) && $this->get($name) !== false) {
-				$request->appendChild($xml->createElement($name, $this->get($name)));
-			}
-		}
+        $request->appendChild($userid);
+        $request->appendChild($userkey);
+        $request->appendChild($action);
 
-		return $xml;
-	}
+        foreach ($this->getOperation()->getParams() as $name => $arg) {
+            if ($this->get($name) === true) {
+                $request->appendChild($xml->createElement($name));
+            } else
+                if (! is_null($this->get($name)) && $this->get($name) !== false) {
+                    $request->appendChild($xml->createElement($name, $this->get($name)));
+                }
+        }
 
-	/**
-	 * Checks the XML response for errors.
-	 * @param  EncodingResponse $xml XML response
-	 */
-	protected function handleResponseErrors($xmlResponse) {
-		if ($xmlResponse->hasError()) {
-			throw new EncodingXmlException($xmlResponse);
-		}
-	}
+        return $xml;
+    }
 
-	/**
-	 * {@inheritdoc}
-	 * @return EncodingResponse
-	 */
-	public function getResult()
-	{
-		return parent::getResult();
-	}
+    /**
+     * Checks the XML response for errors.
+     *
+     * @param EncodingResponse $xml
+     *            XML response
+     */
+    protected function handleResponseErrors($xmlResponse)
+    {
+        if ($xmlResponse->hasError()) {
+            throw new EncodingXmlException($xmlResponse);
+        }
+    }
 
-	/**
-	 * Get the raw XML object
-	 *
-	 * @return DOMDocument
-	 * @throws CommandException
-	 */
-	public function getRawXml()
-	{
-		if (!$this->isPrepared()) {
-			throw new CommandException('The command must be prepared before retrieving the request XML');
-		}
+    /**
+     *
+     * @return EncodingResponse
+     */
+    public function getResult()
+    {
+        return parent::getResult();
+    }
 
-		return $this->rawXml;
-	}
-	/**
-	 * Get the String XML object
-	 *
-	 * @return string
-	 * @throws CommandException
-	 */
-	public function getXml()
-	{
-		return $this->getRawXml()->saveXml();
-	}
+    /**
+     * Get the raw XML object
+     *
+     * @return DOMDocument
+     * @throws CommandException
+     */
+    public function getRawXml()
+    {
+        if (! $this->isPrepared()) {
+            throw new CommandException('The command must be prepared before retrieving the request XML');
+        }
 
-	/**
-	 * Returns the response body, by default with
-	 * encoded HTML entities as string.
-	 *
-	 * @param  boolean $encodeEntities Encode the HTML entities on the body?
-	 * @return string  Response body
-	 */
-	public function getResponseBody($encodeEntities = true) {
-		$body = (string) $this->getResponse()->getBody();
+        return $this->rawXml;
+    }
 
-		if ($encodeEntities) {
-			return htmlentities($body);
-		}
+    /**
+     * Get the String XML object
+     *
+     * @return string
+     * @throws CommandException
+     */
+    public function getXml()
+    {
+        return $this->getRawXml()->saveXml();
+    }
 
-		return $body;
-	}
+    /**
+     * Returns the response body, by default with
+     * encoded HTML entities as string.
+     *
+     * @param boolean $encodeEntities
+     *            Encode the HTML entities on the body
+     * @return string Response body
+     */
+    public function getResponseBody($encodeEntities = true)
+    {
+        $body = (string) $this->getResponse()->getBody();
+
+        if ($encodeEntities) {
+            return htmlentities($body);
+        }
+
+        return $body;
+    }
+
 }

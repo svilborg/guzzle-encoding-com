@@ -9,34 +9,60 @@ class EncodingClientTest extends \Guzzle\Tests\GuzzleTestCase
 
     public function setUp()
     {
-        $this->object = EncodingClient::factory(array(
-            'base_url' => 'http://manage.encoding.com',
-            'userid' => 'xx',
-            'userkey' => 'xx'
-        ));
+        $this->client = $this->getServiceBuilder()->get('test');
     }
 
-    // public function testMissingParamsException() {
-    // $this->setExpectedException("InvalidArgumentException");
+    public function testMissingParamsException()
+    {
+        $this->setExpectedException("InvalidArgumentException");
 
-    // $object = EncodingClient::factory();
-    // }
+        $object = EncodingClient::factory();
+    }
 
-    // public function testWrongAuthException() {
-    // $this->setExpectedException("Gencoding\Guzzle\Encoding\Common\Exception\EncodingXmlException");
+    public function testWrongAuthException()
+    {
+        $this->setExpectedException("Gencoding\Guzzle\Encoding\Common\Exception\EncodingXmlException");
 
-    // $object = EncodingClient::factory(array(
-    // 'base_url' => 'http://manage.encoding.com',
-    // 'userid' => '1',
-    // 'userkey' => 'test'
-    // ));
+        $this->setMockResponse($this->client, 'ErrorAuth');
 
-    // $command = $this->object->getCommand('AddMedia',
-    // array()
-    // );
+        $command = $this->client->getCommand('AddMedia', array());
+        $command->prepare();
 
-    // $media = $command->execute();
-    // }
+        $media = $command->execute();
+    }
+
+    public function testGetMediaInfoException()
+    {
+        $this->setExpectedException("Guzzle\Service\Exception\ValidationException");
+
+        $this->setMockResponse($this->client, 'GetMediaInfo');
+
+        $command = $this->client->getCommand('GetMediaInfo', array());
+        $command->prepare();
+
+        $media = $command->execute();
+    }
+
+    public function testGetMediaInfo()
+    {
+        $this->setMockResponse($this->client, 'GetMediaInfo');
+
+        $command = $this->client->getCommand('GetMediaInfo', array(
+            "mediaid" => 19003866
+        ));
+        $command->prepare();
+
+        try {
+            $media = $command->execute();
+            echo "<pre>";
+            var_dump((string)$media);
+            echo "</pre>";
+            die();
+        } catch (\Exception $e) {
+
+            $this->fail('GetMediaInfo command failed - ' . $e->getMessage());
+        }
+    }
 
     // public function testAddMedia() {
     // $command = $this->object->getCommand('AddMedia',
@@ -82,27 +108,6 @@ class EncodingClientTest extends \Guzzle\Tests\GuzzleTestCase
     // $this->fail('GetStatus command failed - ' . $e->getMessage());
     // }
     // }
-    public function testGetMediaInfo()
-    {
-        $this->assertTrue(true);
-
-        // $command = $this->object->getCommand('GetMediaInfo', array(
-        // "mediaid" => 19003866
-        // ));
-
-        // try {
-        // $media = $command->execute();
-
-        // // echo "<pre>";
-        // // var_dump($media->getXml());
-        // // echo "</pre>";
-        // // die;
-        // } catch (\Exception $e) {
-
-        // $this->fail('GetMediaInfo command failed - ' . $e->getMessage());
-        // }
-    }
-
     protected function tearDown()
     {
         parent::tearDown();
