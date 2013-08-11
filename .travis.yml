@@ -8,8 +8,8 @@ php:
 before_script: composer install
 
 before_script:
-  - composer install 
-  - cp phpunit.xml.dist phpunit.xml
+  - composer install --dev
+  - cp phpunit.dist.xml phpunit.xml
   - phpunit --version
 
 script: phpunit
