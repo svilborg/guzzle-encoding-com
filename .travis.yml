@@ -10,4 +10,4 @@ before_script:
   - cp phpunit.dist.xml phpunit.xml
   - phpunit --version
 
-script: phpunit
+script: phpunit --coverage-text

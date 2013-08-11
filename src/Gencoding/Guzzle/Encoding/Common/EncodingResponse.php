@@ -27,7 +27,7 @@ class EncodingResponse
         try {
             $this->xmlElement = new \SimpleXMLElement($xmlString);
         } catch (\Exception $e) {
-            throw new EncodingXmlException('Could not parse the XML response.');
+            throw new \Exception('Could not parse the XML response.');
         }
     }
 
