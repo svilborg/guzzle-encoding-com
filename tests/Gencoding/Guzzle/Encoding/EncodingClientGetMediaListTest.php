@@ -5,7 +5,7 @@ use Gencoding\Guzzle\Encoding\EncodingClient;
 use Gencoding\Guzzle\Encoding\Common\Exception;
 use Gencoding\Guzzle\Encoding\Common\EncodingResponse;
 
-class EncodingClientAddMediaTest extends \Guzzle\Tests\GuzzleTestCase
+class EncodingClientGetMediaListTest extends \Guzzle\Tests\GuzzleTestCase
 {
 
     public function setUp()
@@ -13,12 +13,12 @@ class EncodingClientAddMediaTest extends \Guzzle\Tests\GuzzleTestCase
         $this->client = $this->getServiceBuilder()->get('test');
     }
 
-    public function testAddMedia()
+    public function testGetMediaList()
     {
-        $command = $this->client->getCommand('AddMedia', array());
-        $this->setMockResponse($this->client, 'AddMedia');
+        $command = $this->client->getCommand('GetMediaList', array());
+        $this->setMockResponse($this->client, 'GetMediaList');
 
-        $command = $this->client->getCommand('AddMedia', array(
+        $command = $this->client->getCommand('GetMediaList', array(
             "source" => "http://localhost/test.mp4"
         ));
         $command->prepare();
@@ -31,11 +31,10 @@ class EncodingClientAddMediaTest extends \Guzzle\Tests\GuzzleTestCase
 
             $resultObject = $result->getXmlElement();
 
-            $this->assertNotEmpty($resultObject->message);
-            $this->assertNotEmpty($resultObject->MediaID);
+            $this->assertNotEmpty($resultObject->media);
         } catch (\Exception $e) {
 
-            $this->fail('AddMedia command failed - ' . $e->getMessage());
+            $this->fail('GetMediaList command failed - ' . $e->getMessage());
         }
     }
 

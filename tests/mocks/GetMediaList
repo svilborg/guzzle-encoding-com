@@ -21,6 +21,11 @@ Pragma: no-cache
 		<finishdate>[Date]</finishdate>
 	</media>
 	<media>
-	...
+		<mediafile>["SourceFile"]</mediafile>
+		<mediaid>["MediaID"]</mediaid>
+		<mediastatus>Closed</mediastatus>
+		<createdate>[Date]</createdate>
+		<startdate>[Date]</startdate>
+		<finishdate>[Date]</finishdate>
 	</media>
 </response>
