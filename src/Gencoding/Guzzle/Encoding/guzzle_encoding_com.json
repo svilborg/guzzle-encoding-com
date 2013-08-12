@@ -5,7 +5,7 @@
 	"operations":{
 		"AddMedia":{
 			"httpMethod":"GET",
-			"summary":"Add New Media API",
+			"summary":"Add new media to user's queue. Creates new items in a queue according to formats specified in the XML API request.",
 			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
 			"parameters":{
 				"action":{
@@ -38,13 +38,12 @@
 					"description":"",
 					"type":"string"
 				}
-
 			}
 
 		},
 		"AddMediaBenchmark":{
 			"httpMethod":"POST",
-			"summary":"",
+			"summary":"Add new media to user's queue and sets a flag to NOT process automatically after downloading. Format fields can be specified as well. If NotifyURL is set, a notification will be sent after the media is ready for processing.",
 			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
 			"parameters":{
 				"action":{
@@ -53,31 +52,36 @@
 				},
 				"source":{
 					"description":"Source media file. Must be specified only for AddMedia and AddMediaBenchmark actions.",
-					"type":"string"
+					"type":"string",
+					"required": true
 				},
 				"format":{
 					"description":"",
-					"type":"string"
+					"type":"array",
+					"required": true
 				},
 				"region":{
 					"description":"",
 					"type":"string"
 				},
 				"notify":{
-					"description":"",
+					"description":"Can be either an HTTP(S) URL for the script with which the result will be posted, or a mailto: link with email address for which the result info will be sent.",
+					"type":"string"
+				},
+				"notify_encoding_errors":{
+					"description":"Can be either an HTTP(S) URL for the script or a mailto: link with email address for which result info will be sent only if media finished with encoding errors.",
 					"type":"string"
 				},
 				"split_screen":{
 					"description":"",
 					"type":"string"
 				}
-
 			}
 
 		},
 		"UpdateMedia":{
 			"httpMethod":"POST",
-			"summary":"",
+			"summary":"Replace information about existing media's formats. All old format items will be deleted and the new ones will be added.",
 			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
 			"parameters":{
 				"mediaid":{
@@ -90,7 +94,7 @@
 		},
 		"ProcessMedia":{
 			"httpMethod":"POST",
-			"summary":"",
+			"summary":"Start encoding the previously downloaded media (ones that have been added with an AddMediaBenchmark action).",
 			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
 			"parameters":{
 				"mediaid":{
@@ -103,7 +107,7 @@
 		},
 		"CancelMedia":{
 			"httpMethod":"POST",
-			"summary":"",
+			"summary":"Delete specified media and all its items in the queue.",
 			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
 			"parameters":{
 				"mediaid":{
@@ -116,7 +120,7 @@
 		},
 		"GetMediaList":{
 			"httpMethod":"POST",
-			"summary":"",
+			"summary":"Returns a list of the user's media in the queue.",
 			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
 			"parameters":{
 
@@ -125,7 +129,7 @@
 		},
 		"GetStatus":{
 			"httpMethod":"POST",
-			"summary":"",
+			"summary":"Returns information about a selected user's media and all its items in the queue.",
 			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
 			"parameters":{
 				"mediaid":{
@@ -144,7 +148,7 @@
 		},
 		"GetMediaInfo":{
 			"httpMethod":"POST",
-			"summary":"",
+			"summary":"Returns video parameters of the specified media when available.",
 			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
 			"parameters":{
 				"mediaid":{
@@ -157,7 +161,7 @@
 		},
 		"RestartMedia":{
 			"httpMethod":"POST",
-			"summary":"",
+			"summary":"Complete restart the entire job.",
 			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
 			"parameters":{
 				"mediaid":{
@@ -170,7 +174,7 @@
 		},
 		"RestartMediaErrors":{
 			"httpMethod":"POST",
-			"summary":"",
+			"summary":"Only retry tasks ended with error.",
 			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
 			"parameters":{
 				"mediaid":{
@@ -183,18 +187,26 @@
 		},
 		"RestartMediaTask":{
 			"httpMethod":"POST",
-			"summary":"",
+			"summary":"Only restart the specified task (format). Additional parameter <taskid> must be specified.",
 			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
 			"parameters":{
-
+				"mediaid":{
+					"description":"A unique identifier for each media.",
+					"type":"integer",
+					"required": true
+				}
 			}
 		},
 		"StopMedia":{
 			"httpMethod":"POST",
-			"summary":"",
+			"summary":"Stop media downloading/processing/uploading. If at least one destination is saved, media will be finished, otherwise it will be stopped.",
 			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
 			"parameters":{
-
+				"mediaid":{
+					"description":"A unique identifier for each media.",
+					"type":"integer",
+					"required": true
+				}
 			}
 
 		}
