@@ -37,6 +37,40 @@ class EncodingClientTest extends \Guzzle\Tests\GuzzleTestCase
         $media = $command->execute();
     }
 
+    public function testWrongXmlException()
+    {
+        $this->setExpectedException("Exception");
+
+        $this->setMockResponse($this->client, 'WrongXml');
+
+        $command = $this->client->getCommand('AddMedia', array());
+        $command->prepare();
+
+        $media = $command->execute();
+    }
+
+    public function testWrongContentTypeException()
+    {
+        $this->setExpectedException("Exception");
+
+        $this->setMockResponse($this->client, 'WrongContentType');
+
+        $command = $this->client->getCommand('AddMedia', array());
+        $command->prepare();
+
+        $media = $command->execute();
+    }
+
+    public function testNotPreparedException()
+    {
+        $this->setExpectedException("Guzzle\Service\Exception\CommandException");
+        $this->setMockResponse($this->client, 'AddMedia');
+
+        $command = $this->client->getCommand('AddMedia', array());
+
+        $command->getRawXml();
+    }
+
     protected function tearDown()
     {
         parent::tearDown();

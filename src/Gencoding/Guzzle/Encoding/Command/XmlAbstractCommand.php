@@ -33,7 +33,7 @@ abstract class XmlAbstractCommand extends AbstractCommand
         $contentType = $this->result->getContentType();
 
         if (stripos($contentType, 'xml') === false) {
-            throw new EncodingXmlException('The Response is not in a valid XML Content Type.');
+            throw new \Exception('The Response is not in a valid XML Content Type.');
         }
 
         $body = trim($this->result->getBody(true));
@@ -83,7 +83,7 @@ abstract class XmlAbstractCommand extends AbstractCommand
             if ($this->get($name) === true) {
                 $request->appendChild($xml->createElement($name));
             } else
-                if (! is_null($this->get($name)) && $this->get($name) !== false) {
+              if (! is_null($this->get($name)) && $this->get($name) !== false) {
                     $request->appendChild($xml->createElement($name, $this->get($name)));
                 }
         }
@@ -129,17 +129,6 @@ abstract class XmlAbstractCommand extends AbstractCommand
     }
 
     /**
-     * Get the String XML object
-     *
-     * @return string
-     * @throws CommandException
-     */
-    public function getXml()
-    {
-        return $this->getRawXml()->saveXml();
-    }
-
-    /**
      * Returns the response body, by default with
      * encoded HTML entities as string.
      *
@@ -157,5 +146,4 @@ abstract class XmlAbstractCommand extends AbstractCommand
 
         return $body;
     }
-
 }

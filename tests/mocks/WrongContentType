@@ -1,0 +1,14 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Sun, 11 Aug 2013 16:37:14 GMT
+Content-Type: text/html
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-Powered-By: PHP/5.4.10
+Set-Cookie: PHPSESSID=evriroro8702ciaf7ori42a7b3; path=/
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+
+<?xml version="1.0"?>
+<response></response>
