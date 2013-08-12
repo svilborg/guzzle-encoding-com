@@ -19,7 +19,12 @@ class EncodingClientAddMediaTest extends \Guzzle\Tests\GuzzleTestCase
         $this->setMockResponse($this->client, 'AddMedia');
 
         $command = $this->client->getCommand('AddMedia', array(
-            "source" => "http://localhost/test.mp4"
+            "source" => "http://localhost/test.mp4",
+            "format" => array(
+                "output" => "flv",
+                "video_codec" => "vp6",
+                "audio_bitrate" => "64k"
+            )
         ));
         $command->prepare();
 

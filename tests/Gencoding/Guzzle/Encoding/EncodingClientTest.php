@@ -31,7 +31,9 @@ class EncodingClientTest extends \Guzzle\Tests\GuzzleTestCase
 
         $this->setMockResponse($this->client, 'ErrorAuth');
 
-        $command = $this->client->getCommand('AddMedia', array());
+        $command = $this->client->getCommand('GetMediaInfo', array(
+            "mediaid" => 19003866
+        ));
         $command->prepare();
 
         $media = $command->execute();
@@ -55,7 +57,9 @@ class EncodingClientTest extends \Guzzle\Tests\GuzzleTestCase
 
         $this->setMockResponse($this->client, 'WrongContentType');
 
-        $command = $this->client->getCommand('AddMedia', array());
+        $command = $this->client->getCommand('GetMediaInfo', array(
+            "mediaid" => 19003866
+        ));
         $command->prepare();
 
         $media = $command->execute();
@@ -66,7 +70,9 @@ class EncodingClientTest extends \Guzzle\Tests\GuzzleTestCase
         $this->setExpectedException("Guzzle\Service\Exception\CommandException");
         $this->setMockResponse($this->client, 'AddMedia');
 
-        $command = $this->client->getCommand('AddMedia', array());
+        $command = $this->client->getCommand('GetMediaInfo', array(
+            "mediaid" => 19003866
+        ));
 
         $command->getRawXml();
     }

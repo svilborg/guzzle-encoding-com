@@ -82,10 +82,20 @@ abstract class XmlAbstractCommand extends AbstractCommand
         foreach ($this->getOperation()->getParams() as $name => $arg) {
             if ($this->get($name) === true) {
                 $request->appendChild($xml->createElement($name));
-            } else
-              if (! is_null($this->get($name)) && $this->get($name) !== false) {
-                    $request->appendChild($xml->createElement($name, $this->get($name)));
+            } else {
+                if (! is_null($this->get($name)) && $this->get($name) !== false) {
+
+                    if (! is_array($this->get($name))) {
+                        $request->appendChild($xml->createElement($name, $this->get($name)));
+                    } else {
+                        $arrayRoot = $request->appendChild($xml->createElement($name));
+
+                        foreach ($this->get($name) as $key => $value) {
+                            $arrayRoot->appendChild($xml->createElement($key, $value));
+                        }
+                    }
                 }
+            }
         }
 
         return $xml;
