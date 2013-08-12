@@ -14,6 +14,45 @@
 				},
 				"source":{
 					"description":"Source media file. Must be specified only for AddMedia and AddMediaBenchmark actions.",
+					"type":"string",
+					"required": true
+				},
+				"format":{
+					"description":"",
+					"type":"string",
+					"required": true
+				},
+				"region":{
+					"description":"",
+					"type":"string"
+				},
+				"notify":{
+					"description":"Can be either an HTTP(S) URL for the script with which the result will be posted, or a mailto: link with email address for which the result info will be sent.",
+					"type":"string"
+				},
+				"notify_encoding_errors":{
+					"description":"Can be either an HTTP(S) URL for the script or a mailto: link with email address for which result info will be sent only if media finished with encoding errors.",
+					"type":"string"
+				},
+				"split_screen":{
+					"description":"",
+					"type":"string"
+				}
+
+			}
+
+		},
+		"AddMediaBenchmark":{
+			"httpMethod":"POST",
+			"summary":"",
+			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
+			"parameters":{
+				"action":{
+					"description":"The action to be performed in the API request.",
+					"type":"string"
+				},
+				"source":{
+					"description":"Source media file. Must be specified only for AddMedia and AddMediaBenchmark actions.",
 					"type":"string"
 				},
 				"format":{
@@ -32,15 +71,6 @@
 					"description":"",
 					"type":"string"
 				}
-
-			}
-
-		},
-		"AddMediaBenchmark":{
-			"httpMethod":"POST",
-			"summary":"",
-			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
-			"parameters":{
 
 			}
 
@@ -143,7 +173,11 @@
 			"summary":"",
 			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
 			"parameters":{
-
+				"mediaid":{
+					"description":"A unique identifier for each media.",
+					"type":"integer",
+					"required": true
+				}
 			}
 
 		},
