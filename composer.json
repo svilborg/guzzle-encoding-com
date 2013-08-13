@@ -3,7 +3,7 @@
 	"type":"library",
 	"description":"PHP Library for Encoding.com's XML API",
 	"keywords":[
-		"Guzzle", "Encoding.com"
+		"Guzzle", "Encoding.com", "encoding", "encoder", "cloud"
 	],
 	"license": "Apache2",
 	"authors":[
