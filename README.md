@@ -37,10 +37,8 @@ $command = $client->getCommand('GetMediaInfo', array(
 	"mediaid" => 8888888888
 ));
 
-$command->prepare();
-
 try {
-    $result = $command->execute();
+    $result = $command->getResult();
 
 	$resultObject = $result->getXmlElement();
 

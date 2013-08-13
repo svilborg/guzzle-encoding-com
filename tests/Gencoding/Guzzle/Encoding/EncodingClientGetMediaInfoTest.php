@@ -32,6 +32,7 @@ class EncodingClientGetMediaInfoTest extends \Guzzle\Tests\GuzzleTestCase
         $command = $this->client->getCommand('GetMediaInfo', array(
             "mediaid" => 19003866
         ));
+
         $command->prepare();
 
         try {
