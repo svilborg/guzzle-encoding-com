@@ -3,16 +3,16 @@
 	"type":"library",
 	"description":"PHP Library for Encoding.com's XML API",
 	"keywords":[
-		"Guzzle",
-		"Encoding.com"
+		"Guzzle", "Encoding.com"
 	],
-	"license":"MIT",
+	"license": "Apache2",
 	"authors":[
 		{
 			"name":"Svilborg",
 			"email":"svilborg@gmail.com"
 		}
 	],
+	"minimum-stability": "dev",
 	"require":{
 		"php":">=5.3.2",
 		"guzzle/guzzle":"*"
