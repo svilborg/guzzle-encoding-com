@@ -14,6 +14,7 @@ Install using composer
     "require" : "svilborg/guzzle-encoding-com"
 }
 ```
+
 ## Requirements
 
 * PHP Version >=5.3.2.
@@ -22,7 +23,6 @@ Install using composer
 * [See also the API documentation](http://www.encoding.com/api)
 
 ## Usage
-
 
 ```php
 use Gencoding\Guzzle\Encoding\EncodingClient;
@@ -46,9 +46,11 @@ try {
 	// Catch Errors
 }
 
+```
+
 ## Running Tests
 
 First, install PHPUnit with `composer.phar install --dev`, then run
-`phpunit`.
+`./vendor/bin/phpunit`. 
 
 ```

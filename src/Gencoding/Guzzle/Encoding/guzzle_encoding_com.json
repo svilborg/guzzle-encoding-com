@@ -209,7 +209,151 @@
 				}
 			}
 
-		}
+		},
 
+
+		"AddSubUser":{
+			"httpMethod":"POST",
+			"summary":"Add new sub user.",
+			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
+			"parameters":{
+				"user_data":{
+					"description":"This data include the registration information (required), and the contact information(optional) about user.",
+					"type":"array",
+					"required": true
+				}
+			}
+		},
+		"UpdateSubUser":{
+			"httpMethod":"POST",
+			"summary":"Replace information about existing user's data.",
+			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
+			"parameters":{
+				"action_user_id":{
+					"description":"An unique identifier of user.",
+					"type":"integer",
+					"required": true
+				}
+			},
+			"parameters":{
+				"user_data":{
+					"description":"This data include the registration information (required), and the contact information(optional) about user.",
+					"type":"array",
+					"required": true
+				}
+			}
+		},
+		"AddTrialUser":{
+			"httpMethod":"POST",
+			"summary":"Add new Trial user.",
+			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
+			"parameters":{
+				"user_data":{
+					"description":"This data include the registration information (required), and the contact information(optional) about user.",
+					"type":"array",
+					"required": true
+				}
+			}
+		},
+		"DeleteUser":{
+			"httpMethod":"POST",
+			"summary":"Delete specified sub user.",
+			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
+			"parameters":{
+				"action_user_id":{
+					"description":"An unique identifier of user.",
+					"type":"integer",
+					"required": true
+				}
+			}
+		},
+		"GetUserInfo":{
+			"httpMethod":"POST",
+			"summary":"Return information about selected user.",
+			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
+			"parameters":{
+				"action_user_id":{
+					"description":"An unique identifier of user.",
+					"type":"integer",
+					"required": true
+				}
+			}
+		},
+		"GetSubUsers":{
+			"httpMethod":"POST",
+			"summary":"Return list of all users and all its data.",
+			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
+			"parameters":{
+				"action_user_id":{
+					"description":"An unique identifier of user.",
+					"type":"integer",
+					"required": true
+				}
+			}
+		},
+		"GetASM":{
+			"httpMethod":"POST",
+			"summary":"",
+			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
+			"parameters":{
+				"action_user_id":{
+					"description":"An unique identifier of user.",
+					"type":"integer",
+					"required": true
+				}
+			}
+		},
+		"GetStorageSpace":{
+			"httpMethod":"POST",
+			"summary":"",
+			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
+			"parameters":{
+				"action_user_id":{
+					"description":"An unique identifier of user.",
+					"type":"integer",
+					"required": true
+				}
+			}
+		},
+		"GetBandwidthStat":{
+			"httpMethod":"POST",
+			"summary":"",
+			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
+			"parameters":{
+				"action_user_id":{
+					"description":"An unique identifier of user.",
+					"type":"integer",
+					"required": true
+				},
+				"date_from":{
+					"description":"From date in format: YYYY-MM-DD",
+					"type":"integer"
+				},
+				"date_to":{
+					"description":"From date in format: YYYY-MM-DD",
+					"type":"integer"
+				}
+			}
+		},
+		"GetBandwidthStatGroupDate":{
+			"httpMethod":"POST",
+			"summary":"",
+			"class":"\\Gencoding\\Guzzle\\Encoding\\Command\\XmlCommand",
+			"parameters":{
+				"action_user_id":{
+					"description":"An unique identifier of user.",
+					"type":"integer",
+					"required": true
+				},
+				"date_from":{
+					"description":"From date in format: YYYY-MM-DD",
+					"type":"integer"
+				},
+				"date_to":{
+					"description":"From date in format: YYYY-MM-DD",
+					"type":"integer"
+				}
+			}
+		}
 	}
 }
