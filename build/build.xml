@@ -67,8 +67,9 @@
 
 	<target name="sniff" description="Check code for PSR-2 compliance">
 		<phpcodesniffer standard="PSR2" format="summary">
+			<!-- format="summary" -->
 			<fileset dir="src" id="filestosniff">
-				<include name="application/**/*.php" />
+				<include name="**/*.php" />
 			</fileset>
 		</phpcodesniffer>
 	</target>

@@ -1,5 +1,4 @@
 <?php
-
 namespace Gencoding\Guzzle\Encoding\Command;
 
 /**

@@ -49,13 +49,16 @@ abstract class XmlAbstractCommand extends AbstractCommand
     {
         $this->rawXml = $this->buildXML();
 
-        $this->client->setDefaultOption('headers', array(
-            'Content-Type' => 'application/x-www-form-urlencoded'
-        ));
+        $this->client->setDefaultOption(
+            'headers',
+            array('Content-Type' => 'application/x-www-form-urlencoded')
+        );
 
-        $this->request = $this->client->post(null, null, array(
-            "xml" => ($this->rawXml->saveXML())
-        ));
+        $this->request = $this->client->post(
+            null,
+            null,
+            array("xml" => ($this->rawXml->saveXML()))
+        );
     }
 
     /**
@@ -71,9 +74,9 @@ abstract class XmlAbstractCommand extends AbstractCommand
         $request = $xml->appendChild($xml->createElement('query'));
 
         // add action, userid and userkey params
-        $userid = $xml->createElement('userid', $this->client->getConfig('userid'));
+        $userid  = $xml->createElement('userid', $this->client->getConfig('userid'));
         $userkey = $xml->createElement('userkey', $this->client->getConfig('userkey'));
-        $action = $xml->createElement('action', $this->getName());
+        $action  = $xml->createElement('action', $this->getName());
 
         $request->appendChild($userid);
         $request->appendChild($userkey);

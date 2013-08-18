@@ -1,5 +1,4 @@
 <?php
-
 namespace Gencoding\Guzzle\Encoding\Common;
 
 /**
@@ -7,6 +6,6 @@ namespace Gencoding\Guzzle\Encoding\Common;
  */
 class Version extends \Guzzle\Common\Version
 {
-	const VERSION = '0.1';
 
+    const VERSION = '0.1';
 }

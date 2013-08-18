@@ -35,7 +35,7 @@ class EncodingClient extends Client
      *
      * @return EncodingClient
      */
-    static function factory($config = array())
+    public static function factory($config = array())
     {
         $config = self::getConfigCollection($config);
 
@@ -56,7 +56,7 @@ class EncodingClient extends Client
      * @param unknown $config
      * @return \Guzzle\Common\Collection
      */
-    static function getConfigCollection($config)
+    public static function getConfigCollection($config)
     {
         $default = array(
             'base_url' => 'http://manage.encoding.com'
@@ -66,11 +66,11 @@ class EncodingClient extends Client
             'userkey'
         );
 
-        $config = Collection::fromConfig($config, $default, array(
-            'base_url',
-            'userid',
-            'userkey'
-        ));
+        $config = Collection::fromConfig(
+            $config,
+            $default,
+            array('base_url', 'userid', 'userkey')
+        );
 
         return $config;
     }
