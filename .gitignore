@@ -1,10 +1,29 @@
+# cache directories
+Thumbs.db
+*.DS_Store
+*.empty
+
+# phpstorm project files
+.idea
+
+# eclipse
+.buildpath
+.project
+.settings
+
+# SublimeText
+/*.sublime-project
+
 .htaccess
 phpunit.xml
 vendor
 composer.phar
 
-# ignore eclipse
-.buildpath
-.settings/*
-.project
-/.settings
+#composer
+/composer.lock
+
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini

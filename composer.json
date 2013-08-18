@@ -12,6 +12,10 @@
 			"email":"svilborg@gmail.com"
 		}
 	],
+	"support": {
+		"issues": "https://github.com/svilborg/guzzle-encoding-com?state=open",
+		"source": "https://github.com/svilborg/guzzle-encoding-com"
+	},
 	"minimum-stability": "dev",
 	"require":{
 		"php":">=5.3.2",
