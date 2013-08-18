@@ -8,15 +8,16 @@
  * @license Apache2
  */
 -->
-<project name="guzzle-encoding-com" basedir="." default="help">
+<project name="guzzle-encoding-com" basedir="../" default="help">
 
 	<!-- these are required external commands -->
 	<property name="php" value="php" />
 	<!-- PHP parser -->
 
 	<!-- directory definitions -->
-	<property name="build.base.dir" value="release" />
-	<property name="build.dist.dir" value="${build.base.dir}/dist" />
+	<property name="dir.output" value="${project.basedir}/" />
+	<property name="build.basedir" value="release" />
+	<property name="build.dist.dir" value="${build.basedir}/dist" />
 
 	<tstamp>
 		<format property="DATE" pattern="%b %e %Y" />
@@ -33,7 +34,7 @@
 	</if>
 
 	<!-- source files in library -->
-	<fileset dir=".." id="framework">
+	<fileset dir=".." id="library">
 		<exclude name="**/.gitignore" />
 		<exclude name="**/*.bak" />
 		<exclude name="**/*~" />
@@ -51,9 +52,30 @@
 		<include name="blog/**/*" />
 	</fileset>
 
+	<target name="php-lint" description="PHP Lint Source Check">
+		<phplint level="info">
+			<fileset dir="${project.basedir}/src">
+				<include name="**/*.php" />
+			</fileset>
+		</phplint>
+		<phplint level="info">
+			<fileset dir="${project.basedir}/tests">
+				<include name="**/*.php" />
+			</fileset>
+		</phplint>
+	</target>
+
+	<target name="sniff" description="Check code for PSR-2 compliance">
+		<phpcodesniffer standard="PSR2" format="summary">
+			<fileset dir="src" id="filestosniff">
+				<include name="application/**/*.php" />
+			</fileset>
+		</phpcodesniffer>
+	</target>
+
 	<target name="clean">
 		<echo>Cleaning up the build...</echo>
-		<delete dir="${build.base.dir}" />
+		<delete dir="${build.basedir}" />
 	</target>
 
 	<target name="help">
@@ -66,7 +88,8 @@ Usage :
 
 Options :
 
-   - clean   : clean up the build
+   - clean    : Clean up Build
+   - php-lint : PHP Lint Source Check
 
     </echo>
 	</target>
