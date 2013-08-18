@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Phing build file for guzzle-encoding-com
+ *
+ * @author svilborg
+ * @link https://github.com/svilborg/guzzle-encoding-com
+ * @license Apache2
+ */
+-->
+<project name="guzzle-encoding-com" basedir="." default="help">
+
+	<!-- these are required external commands -->
+	<property name="php" value="php" />
+	<!-- PHP parser -->
+
+	<!-- directory definitions -->
+	<property name="build.base.dir" value="release" />
+	<property name="build.dist.dir" value="${build.base.dir}/dist" />
+
+	<tstamp>
+		<format property="DATE" pattern="%b %e %Y" />
+	</tstamp>
+
+	<if>
+		<equals arg1="${yii.winbuild}" arg2="true" />
+		<then>
+			<property name="build" value="build" />
+		</then>
+		<else>
+			<property name="build" value="php build" />
+		</else>
+	</if>
+
+	<!-- source files in library -->
+	<fileset dir=".." id="framework">
+		<exclude name="**/.gitignore" />
+		<exclude name="**/*.bak" />
+		<exclude name="**/*~" />
+		<include name="src**/*" />
+		<include name="LICENSE" />
+		<include name="README.md" />
+	</fileset>
+
+	<!-- doc files -->
+	<fileset dir="../docs" id="docs">
+		<exclude name="**/.gitignore" />
+		<exclude name="**/*.bak" />
+		<exclude name="**/*~" />
+		<include name="guide/**/*" />
+		<include name="blog/**/*" />
+	</fileset>
+
+	<target name="clean">
+		<echo>Cleaning up the build...</echo>
+		<delete dir="${build.base.dir}" />
+	</target>
+
+	<target name="help">
+		<echo>
+guzzle-encoding-com build script
+--------------------------------
+
+Usage :
+    phing   &lt;target name&gt;
+
+Options :
+
+   - clean   : clean up the build
+
+    </echo>
+	</target>
+</project>

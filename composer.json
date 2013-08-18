@@ -22,7 +22,8 @@
 		"guzzle/guzzle":"*"
 	},
 	"require-dev":{
-		"phpunit/phpunit":"3.7.*@dev"
+		"phpunit/phpunit":"3.7.*@dev",
+		"phing/phing" : "dev-master"
 	},
 	"autoload":{
 		"psr-0":{
