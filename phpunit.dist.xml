@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <phpunit bootstrap="./tests/bootstrap.php" backupGlobals="true"
-	 colors="true" processIsolation="false"
-	stopOnFailure="false" syntaxCheck="true" verbose="true">
+	colors="true" processIsolation="false" stopOnFailure="false"
+	syntaxCheck="true" verbose="true">
 
 	<testsuites>
 		<testsuite name="Guzzle Encoding.com Test Suite">
@@ -8,10 +9,15 @@
 		</testsuite>
 	</testsuites>
 
-    <filter>
-        <blacklist>
-            <directory suffix=".php">./vendor</directory>
-        </blacklist>
-    </filter>
+	<logging>
+		<log type="junit" target="build/logs/junit.xml"
+			logIncompleteSkipped="false" />
+	</logging>
+
+	<filter>
+		<blacklist>
+			<directory suffix=".php">./vendor</directory>
+		</blacklist>
+	</filter>
 
 </phpunit>
