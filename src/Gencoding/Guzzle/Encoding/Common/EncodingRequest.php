@@ -19,13 +19,14 @@ class EncodingRequest extends \DOMDocument
     }
 
     /**
+     * Set Query & Auth Params
      *
-     * @param unknown $userid
-     * @param unknown $userkey
-     * @param unknown $action
+     * @param string $userid User Id
+     * @param string $userkey User Key
+     * @param string $action Action Name
      * @return DOMNode
      */
-    public function getDomQuery($userid, $userkey, $action)
+    public function setDomQuery($userid, $userkey, $action)
     {
         $request = $this->appendChild($this->createElement('query'));
 
