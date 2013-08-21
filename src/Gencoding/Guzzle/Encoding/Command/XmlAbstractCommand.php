@@ -2,6 +2,7 @@
 namespace Gencoding\Guzzle\Encoding\Command;
 
 use Gencoding\Guzzle\Encoding\Common;
+use Gencoding\Guzzle\Encoding\Common\EncodingRequest;
 use Gencoding\Guzzle\Encoding\Common\EncodingResponse;
 use Gencoding\Guzzle\Encoding\Common\Exception\EncodingXmlException;
 use Guzzle\Service\Command\AbstractCommand;
@@ -49,52 +50,69 @@ abstract class XmlAbstractCommand extends AbstractCommand
     {
         $this->rawXml = $this->buildXML();
 
-        $this->client->setDefaultOption(
-            'headers',
-            array('Content-Type' => 'application/x-www-form-urlencoded')
-        );
+        $this->client->setDefaultOption('headers', array(
+            'Content-Type' => 'application/x-www-form-urlencoded'
+        ));
 
-        $this->request = $this->client->post(
-            null,
-            null,
-            array("xml" => ($this->rawXml->saveXML()))
-        );
+        $this->request = $this->client->post(null, null, array(
+            "xml" => ($this->rawXml->saveXML())
+        ));
     }
 
     /**
      * Builds the XML for the request body.
      *
-     * @return DOMDocument XML in DOMDocument format
+     * @return EncodingRequest XML in DOMDocument format
      */
     public function buildXML()
     {
-        $xml = new \DOMDocument('1.0', 'utf-8');
-        $xml->formatOutput = true;
+        $xml = new EncodingRequest();
 
-        $request = $xml->appendChild($xml->createElement('query'));
-
-        // add action, userid and userkey params
-        $userid  = $xml->createElement('userid', $this->client->getConfig('userid'));
-        $userkey = $xml->createElement('userkey', $this->client->getConfig('userkey'));
-        $action  = $xml->createElement('action', $this->getName());
-
-        $request->appendChild($userid);
-        $request->appendChild($userkey);
-        $request->appendChild($action);
+        $request = $xml->setDomQuery($this->client->getConfig('userid'), $this->client->getConfig('userkey'), $this->getName());
 
         foreach ($this->getOperation()->getParams() as $name => $arg) {
+
             if ($this->get($name) === true) {
                 $request->appendChild($xml->createElement($name));
             } else {
                 if (! is_null($this->get($name)) && $this->get($name) !== false) {
 
                     if (! is_array($this->get($name))) {
+                        // Non Array Type - String, Integer, etc ..
+
                         $request->appendChild($xml->createElement($name, $this->get($name)));
                     } else {
-                        $arrayRoot = $request->appendChild($xml->createElement($name));
 
-                        foreach ($this->get($name) as $key => $value) {
-                            $arrayRoot->appendChild($xml->createElement($key, $value));
+                        if ($name == "source") {
+                            // Build "Flat" Array to XML
+
+                            foreach ($this->get($name) as $key => $value) {
+                                $request->appendChild($xml->createElement($name, $value));
+                            }
+                        } else {
+                            // Build Array to XML
+
+                            $arrayRoot = $request->appendChild($xml->createElement($name));
+
+                            foreach ($this->get($name) as $key => $value) {
+
+                                if (! is_array($value)) {
+                                    $arrayRoot->appendChild($xml->createElement($key, $value));
+                                } else {
+                                    if ($key == "destination") {
+                                        // Build "Flat" Array to XML in a sub Element
+                                        foreach ($value as $subValue) {
+                                            $arrayRoot->appendChild($xml->createElement($key, $subValue));
+                                        }
+                                    } else {
+                                        $arraySubRoot->appendChild($xml->createElement($key));
+
+                                        foreach ($value as $subKey => $subValue) {
+                                            $arraySubRoot->appendChild($xml->createElement($subKey, $subValue));
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }

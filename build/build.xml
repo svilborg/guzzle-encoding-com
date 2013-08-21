@@ -46,7 +46,6 @@
 
 	<target name="sniff" description="Check code for PSR-2 compliance">
 		<phpcodesniffer standard="PSR2" format="summary">
-			<!-- format="summary" -->
 			<fileset dir="src" id="filestosniff">
 				<include name="**/*.php" />
 			</fileset>
@@ -54,6 +53,7 @@
 	</target>
 
 	<target name="phploc" description="Measure project size using PHPLOC">
+		<mkdir dir="${build.basedir}/logs" />
 		<exec command="phploc --log-csv ${build.basedir}/logs/phploc.csv ${project.basedir}/src" passthru="true" />
 	</target>
 
@@ -75,9 +75,8 @@
 		<delete dir="${build.basedir}/logs" />
 	</target>
 
-	<target name="check" description="Runs all metrics/checks over the project">
-		<echo>Cleaning up the build...</echo>
-		<delete dir="${build.basedir}/logs" />
+	<target name="check" description="Runs all metrics/checks over the project" depends="php-lint, phploc, sniff,  pdepend">
+		<echo>Running metrics ...</echo>
 	</target>
 
 	<target name="help">

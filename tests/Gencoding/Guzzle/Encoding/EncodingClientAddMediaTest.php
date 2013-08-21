@@ -19,7 +19,7 @@ class EncodingClientAddMediaTest extends \Guzzle\Tests\GuzzleTestCase
         $this->setMockResponse($this->client, 'AddMedia');
 
         $command = $this->client->getCommand('AddMedia', array(
-            "source" => "http://localhost/test.mp4",
+            "source" => "http://localhost/one.mp4",
             "format" => array(
                 "output" => "flv",
                 "video_codec" => "vp6",
@@ -30,6 +30,138 @@ class EncodingClientAddMediaTest extends \Guzzle\Tests\GuzzleTestCase
 
         try {
             $result = $command->execute();
+
+            $xml = <<<XML
+<?xml version="1.0" encoding="utf-8"?>
+<query>
+  <userid>xx</userid>
+  <userkey>xx</userkey>
+  <action>AddMedia</action>
+  <source>http://localhost/one.mp4</source>
+  <format>
+    <output>flv</output>
+    <video_codec>vp6</video_codec>
+    <audio_bitrate>64k</audio_bitrate>
+  </format>
+</query>
+XML;
+
+            // Request Check
+            $this->assertEquals($xml, trim($command->getRawXml()
+                ->saveXML()));
+
+            // Response Checks
+            $this->assertFalse($result->hasError());
+            $this->assertEquals($result->getXmlString(), $command->getResponseBody(false));
+
+            $resultObject = $result->getXmlElement();
+
+            $this->assertNotEmpty($resultObject->message);
+            $this->assertNotEmpty($resultObject->MediaID);
+        } catch (\Exception $e) {
+
+            $this->fail('AddMedia command failed - ' . $e->getMessage());
+        }
+    }
+
+    public function testAddMediaMultiSources()
+    {
+        $command = $this->client->getCommand('AddMedia', array(
+            "source" => array(
+                "http://localhost/one.mp4",
+                "test://test"
+            ),
+            "format" => array(
+                "output" => "flv",
+                "video_codec" => "vp6",
+                "audio_bitrate" => "64k"
+            )
+        ));
+        $this->setMockResponse($this->client, 'AddMedia');
+
+        $command->prepare();
+
+        try {
+            $result = $command->execute();
+
+            $xml = <<<XML
+<?xml version="1.0" encoding="utf-8"?>
+<query>
+  <userid>xx</userid>
+  <userkey>xx</userkey>
+  <action>AddMedia</action>
+  <source>http://localhost/one.mp4</source>
+  <source>test://test</source>
+  <format>
+    <output>flv</output>
+    <video_codec>vp6</video_codec>
+    <audio_bitrate>64k</audio_bitrate>
+  </format>
+</query>
+XML;
+
+            // Request Check
+            $this->assertEquals($xml, trim($command->getRawXml()
+                ->saveXML()));
+
+            $this->assertFalse($result->hasError());
+            $this->assertEquals($result->getXmlString(), $command->getResponseBody(false));
+
+            $resultObject = $result->getXmlElement();
+
+            $this->assertNotEmpty($resultObject->message);
+            $this->assertNotEmpty($resultObject->MediaID);
+        } catch (\Exception $e) {
+
+            $this->fail('AddMedia command failed - ' . $e->getMessage());
+        }
+    }
+
+    public function testAddMediaMultiDestinations()
+    {
+        $command = $this->client->getCommand('AddMedia', array(
+            "source" => array(
+                "http://localhost/one.mp4",
+                "test://test"
+            ),
+            "format" => array(
+                "output" => "flv",
+                "video_codec" => "vp6",
+                "audio_bitrate" => "64k",
+                "destination" => array(
+                    "ftp://test@dest.com/",
+                    "ftp://test2@dest2.com/"
+                    )
+            )
+        ));
+        $this->setMockResponse($this->client, 'AddMedia');
+
+        $command->prepare();
+
+        try {
+            $result = $command->execute();
+
+            $xml = <<<XML
+<?xml version="1.0" encoding="utf-8"?>
+<query>
+  <userid>xx</userid>
+  <userkey>xx</userkey>
+  <action>AddMedia</action>
+  <source>http://localhost/one.mp4</source>
+  <source>test://test</source>
+  <format>
+    <output>flv</output>
+    <video_codec>vp6</video_codec>
+    <audio_bitrate>64k</audio_bitrate>
+    <destination>ftp://test@dest.com/</destination>
+    <destination>ftp://test2@dest2.com/</destination>
+  </format>
+</query>
+XML;
+
+            // Request Check
+            $this->assertEquals($xml, trim($command->getRawXml()
+                ->saveXML()));
 
             $this->assertFalse($result->hasError());
             $this->assertEquals($result->getXmlString(), $command->getResponseBody(false));
@@ -46,6 +178,8 @@ class EncodingClientAddMediaTest extends \Guzzle\Tests\GuzzleTestCase
 
     protected function tearDown()
     {
+        $this->client = null;
+
         parent::tearDown();
     }
 }

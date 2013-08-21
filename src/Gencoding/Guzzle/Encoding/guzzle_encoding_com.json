@@ -14,7 +14,7 @@
 				},
 				"source":{
 					"description":"Source media file. Must be specified only for AddMedia and AddMediaBenchmark actions.",
-					"type":"string",
+
 					"required": true
 				},
 				"format":{

@@ -47,6 +47,5 @@ tramp
 .Trashes
 
 # Build
-/build/logs/**
-/build/pdepend/**
-
+/build/logs
+/build/pdepend

@@ -21,9 +21,12 @@ class EncodingRequest extends \DOMDocument
     /**
      * Set Query & Auth Params
      *
-     * @param string $userid User Id
-     * @param string $userkey User Key
-     * @param string $action Action Name
+     * @param string $userid
+     *            User Id
+     * @param string $userkey
+     *            User Key
+     * @param string $action
+     *            Action Name
      * @return DOMNode
      */
     public function setDomQuery($userid, $userkey, $action)
