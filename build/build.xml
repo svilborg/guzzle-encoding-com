@@ -15,23 +15,11 @@
 	<!-- PHP parser -->
 
 	<!-- directory definitions -->
-	<property name="dir.output" value="${project.basedir}/build" />
-	<property name="build.basedir" value="release" />
-	<property name="build.dist.dir" value="${build.basedir}/dist" />
+	<property name="build.basedir" value="${project.basedir}/build" />
 
 	<tstamp>
 		<format property="DATE" pattern="%b %e %Y" />
 	</tstamp>
-
-	<if>
-		<equals arg1="${yii.winbuild}" arg2="true" />
-		<then>
-			<property name="build" value="build" />
-		</then>
-		<else>
-			<property name="build" value="php build" />
-		</else>
-	</if>
 
 	<!-- source files in library -->
 	<fileset dir=".." id="library">
@@ -43,22 +31,13 @@
 		<include name="README.md" />
 	</fileset>
 
-	<!-- doc files -->
-	<fileset dir="../docs" id="docs">
-		<exclude name="**/.gitignore" />
-		<exclude name="**/*.bak" />
-		<exclude name="**/*~" />
-		<include name="guide/**/*" />
-		<include name="blog/**/*" />
-	</fileset>
-
 	<target name="php-lint" description="PHP Lint Source Check">
-		<phplint level="info">
+		<phplint level="default">
 			<fileset dir="${project.basedir}/src">
 				<include name="**/*.php" />
 			</fileset>
 		</phplint>
-		<phplint level="info">
+		<phplint level="default">
 			<fileset dir="${project.basedir}/tests">
 				<include name="**/*.php" />
 			</fileset>
@@ -75,25 +54,30 @@
 	</target>
 
 	<target name="phploc" description="Measure project size using PHPLOC">
-		<exec command="phploc --log-csv ${dir.output}/logs/phploc.csv ${project.basedir}/src" passthru="true" />
+		<exec command="phploc --log-csv ${build.basedir}/logs/phploc.csv ${project.basedir}/src" passthru="true" />
 	</target>
 
 	<target name="pdepend" description="Calculate software metrics using PHP_Depend">
-		<mkdir dir="${dir.output}/pdepend" />
+		<mkdir dir="${build.basedir}/pdepend" />
 		<phpdepend>
 			<fileset dir="${project.basedir}/src">
 				<include name="**/*.php" />
 			</fileset>
-			<logger type="jdepend-xml" outfile="${dir.output}/logs/jdepend.xml" />
-			<logger type="jdepend-chart" outfile="${dir.output}/pdepend/dependencies.svg" />
-			<logger type="overview-pyramid" outfile="${dir.output}/pdepend/overview-pyramid.svg" />
+			<logger type="jdepend-xml" outfile="${build.basedir}/logs/jdepend.xml" />
+			<logger type="jdepend-chart" outfile="${build.basedir}/pdepend/dependencies.svg" />
+			<logger type="overview-pyramid" outfile="${build.basedir}/pdepend/overview-pyramid.svg" />
 			<analyzer type="coderank-mode" value="method" />
 		</phpdepend>
 	</target>
 
 	<target name="clean">
 		<echo>Cleaning up the build...</echo>
-		<delete dir="${build.basedir}" />
+		<delete dir="${build.basedir}/logs" />
+	</target>
+
+	<target name="check" description="Runs all metrics/checks over the project">
+		<echo>Cleaning up the build...</echo>
+		<delete dir="${build.basedir}/logs" />
 	</target>
 
 	<target name="help">
@@ -107,8 +91,12 @@ Usage :
 Options :
 
    - clean    : Clean up Build
+   - check    : Runs all metrics/checks over the project
    - php-lint : PHP Lint Source Check
-
+   - sniff    : Check code for PSR-2 compliance
+   - phploc   : Measure project size using PHPLOC
+   - pdepend  : Calculate software metrics using PHP_Depend
+   - help     : This help message
     </echo>
 	</target>
 </project>
