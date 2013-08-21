@@ -105,7 +105,7 @@ abstract class XmlAbstractCommand extends AbstractCommand
                                             $arrayRoot->appendChild($xml->createElement($key, $subValue));
                                         }
                                     } else {
-                                        $arraySubRoot->appendChild($xml->createElement($key));
+                                        $arraySubRoot = $arrayRoot->appendChild($xml->createElement($key));
 
                                         foreach ($value as $subKey => $subValue) {
                                             $arraySubRoot->appendChild($xml->createElement($subKey, $subValue));

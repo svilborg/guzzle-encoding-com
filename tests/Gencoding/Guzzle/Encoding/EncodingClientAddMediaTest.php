@@ -47,8 +47,8 @@ class EncodingClientAddMediaTest extends \Guzzle\Tests\GuzzleTestCase
 XML;
 
             // Request Check
-            $this->assertEquals($xml, trim($command->getRawXml()
-                ->saveXML()));
+            $this->assertXmlStringEqualsXmlString($xml, $command->getRawXml()
+                ->saveXML());
 
             // Response Checks
             $this->assertFalse($result->hasError());
@@ -101,8 +101,8 @@ XML;
 XML;
 
             // Request Check
-            $this->assertEquals($xml, trim($command->getRawXml()
-                ->saveXML()));
+            $this->assertXmlStringEqualsXmlString($xml, $command->getRawXml()
+                ->saveXML());
 
             $this->assertFalse($result->hasError());
             $this->assertEquals($result->getXmlString(), $command->getResponseBody(false));
@@ -131,7 +131,10 @@ XML;
                 "destination" => array(
                     "ftp://test@dest.com/",
                     "ftp://test2@dest2.com/"
-                    )
+                ),
+                "metadata" => array(
+                    'title' => "Title"
+                )
             )
         ));
         $this->setMockResponse($this->client, 'AddMedia');
@@ -155,13 +158,16 @@ XML;
     <audio_bitrate>64k</audio_bitrate>
     <destination>ftp://test@dest.com/</destination>
     <destination>ftp://test2@dest2.com/</destination>
+    <metadata>
+        <title>Title</title>
+    </metadata>
   </format>
 </query>
 XML;
 
             // Request Check
-            $this->assertEquals($xml, trim($command->getRawXml()
-                ->saveXML()));
+            $this->assertXmlStringEqualsXmlString($xml, $command->getRawXml()
+                ->saveXML());
 
             $this->assertFalse($result->hasError());
             $this->assertEquals($result->getXmlString(), $command->getResponseBody(false));

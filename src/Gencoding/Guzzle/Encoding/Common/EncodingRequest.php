@@ -44,9 +44,4 @@ class EncodingRequest extends \DOMDocument
 
         return $request;
     }
-
-    public function getDom()
-    {
-        return $this;
-    }
 }
