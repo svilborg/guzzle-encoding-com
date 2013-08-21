@@ -7,7 +7,7 @@ php:
 
 before_script:
   - echo '\n Installing Composer ..'
-  - composer install --dev
+  - composer install --dev --no-interaction --prefer-source
   - echo '\n Configure PHP Unit ..'
   - cp phpunit.dist.xml phpunit.xml
   - phpunit --version
