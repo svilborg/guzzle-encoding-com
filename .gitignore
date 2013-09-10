@@ -49,3 +49,4 @@ tramp
 # Build
 /build/logs
 /build/pdepend
+/.sublime-project.sublime-workspace
